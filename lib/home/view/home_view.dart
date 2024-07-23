@@ -5,9 +5,11 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const BaseScaffold(
+    return  const BaseScaffold(
+      drawer: CustomDrawer(),
       appBar: CustomAppBar(
         title: 'Home',
+        leading: ,
       ),
       body: Column(
         children: [],
