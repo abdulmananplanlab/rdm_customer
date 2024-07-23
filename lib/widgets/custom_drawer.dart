@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:rdm_builder_customer/widgets/custom_title_subtitle.dart';
 
 class CustomDrawer extends StatefulWidget {
@@ -51,6 +50,14 @@ class _CustomDrawerState extends State<CustomDrawer> {
             const SizedBox(
               height: 15,
             ),
+            TextButton(
+              style: TextButton.styleFrom(
+                foregroundColor: context.primary500,
+                textStyle: context.sixteen500,
+              ),
+              onPressed: () {},
+              child: const Text('Become an Inspector'),
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: CustomOutlinedButton.expanded(
@@ -89,7 +96,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+          padding: const EdgeInsets.all(16),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -109,6 +116,8 @@ class _CustomDrawerState extends State<CustomDrawer> {
               height: 130,
               decoration: const BoxDecoration(
                 image: DecorationImage(
+                  opacity: 1.2,
+                  // opacity: 0.8,
                   image: AssetImage(
                     'assets/images/drawer_background.png',
                   ),
@@ -116,306 +125,36 @@ class _CustomDrawerState extends State<CustomDrawer> {
               ),
             ),
             Positioned(
-              left: 10,
+              left: 20,
               top: 30,
               child: Row(
                 children: [
-                  const CircleAvatar(
-                    radius: 30,
-                    backgroundImage:
-                        AssetImage('assets/images/drawer_image1.png'),
+                  Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: context.white,
+                          spreadRadius: 12,
+                        ),
+                      ],
+                    ),
+                    child: const CircleAvatar(
+                      radius: 30,
+                      backgroundImage: AssetImage('assets/images/Avatar.png'),
+                    ),
                   ),
-                  const SizedBox(width: 10),
+                  const SizedBox(width: 20),
                   CustomTitleSubtitle(
-                    isIcon: true,
                     subtitleStyle: context.twelve400.withColor(context.white),
                     titleStyle: context.sixteen700.withColor(context.white),
-                    title: 'Realty',
-                    subtitle: 'Unlocking Your Dream \n Home!',
+                    title: 'Robert Fox',
+                    subtitle: 'robertfox@email.com',
                   ),
                 ],
               ),
             ),
           ],
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const CustomTitleSubtitle(
-                title: 'Complete Your Profile',
-                isSubtitle: false,
-              ),
-              const SizedBox(height: 10),
-              const CustomListTile(
-                leading: Text(
-                  'Progress',
-                ),
-                trailing: Text(
-                  '100 %',
-                ),
-              ),
-              const SizedBox(height: 8),
-              LinearPercentIndicator(
-                width: MediaQuery.of(context).size.width * .69,
-                animation: true,
-                animationDuration: 2000,
-                percent: 1.0,
-                progressColor: context.primary500,
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 12),
-        const Divider(
-          color: Color(0xFFE5E5E5),
-          thickness: 1,
-          height: 1,
-        ),
-        const SizedBox(height: 24),
-        if (isFocalPerson)
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: CustomListTile(
-              titleStyle: context.twelve400.withColor(context.grey500),
-              subtitleStyle: context.sixteen600,
-              leading: const ClipRRect(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(50),
-                ),
-                child: NetworkImageWidget(
-                  height: 50,
-                  width: 50,
-                  imageUrl:
-                      'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-                ),
-              ),
-              title: 'Focal Person',
-              subtitle: 'James Smith',
-              trailing: MenuAnchor(
-                style: MenuStyle(
-                  backgroundColor: WidgetStateProperty.all(context.transparent),
-                  elevation: WidgetStateProperty.all(0),
-                ),
-                alignmentOffset: Offset.fromDirection(0, -160),
-                crossAxisUnconstrained: false,
-                builder: (
-                  BuildContext context,
-                  MenuController controller,
-                  Widget? child,
-                ) {
-                  return IconButton(
-                    highlightColor: context.transparent,
-                    onPressed: () {
-                      if (controller.isOpen) {
-                        controller.close();
-                      } else {
-                        controller.open();
-                      }
-                    },
-                    icon: const Icon(Icons.more_horiz),
-                  );
-                },
-                menuChildren: [
-                  DecoratedBox(
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: const Color(0xFF091409).withOpacity(1 / 100),
-                          offset: const Offset(-10, 10),
-                          blurRadius: 10,
-                        ),
-                      ],
-                      borderRadius: BorderRadius.circular(8),
-                      color: context.white,
-                      border: Border.all(
-                        color: context.grey200,
-                      ),
-                    ),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Change Focal Person',
-                                style: context.twelve400,
-                              ),
-                              const SizedBox(width: 8),
-                              const AssetIcon.monotone(
-                                size: 20,
-                                AssetIcons.edit,
-                              ),
-                            ],
-                          ),
-                        ),
-                        const AssetIcon.multicolor(
-                          size: 1,
-                          AssetIcons.line,
-                        ),
-                        // SizedBox(
-                        //   width: double.infinity,
-                        //   child: Divider(
-                        //     color: context.grey200,
-                        //   ),
-                        // ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Delete Focal Person',
-                                style: context.twelve400
-                                    .withColor(context.error500),
-                              ),
-                              const SizedBox(width: 8),
-                              AssetIcon.monotone(
-                                size: 20,
-                                AssetIcons.delete_icon,
-                                color: context.error500,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              // CustomInkWell(
-              //   onTap: controller.toggle,
-              //   child:
-              //   OverlayPortal(
-              //     controller: controller,
-              //     overlayChildBuilder: (BuildContext context) {
-              //       return Positioned(
-              //         left: 50,
-              //         top: MediaQuery.of(context).size.height * .41,
-              //         child: DecoratedBox(
-              //           decoration: BoxDecoration(
-              //             boxShadow: [
-              //               BoxShadow(
-              //                 color:
-              //                     const Color(0xFF091409).withOpacity(5 / 100),
-              //                 offset: const Offset(-10, 10),
-              //                 blurRadius: 10,
-              //               ),
-              //             ],
-              //             borderRadius: BorderRadius.circular(8),
-              //             color: context.white,
-              //             border: Border.all(
-              //               color: context.grey200,
-              //             ),
-              //           ),
-              //           child: Column(
-              //             children: [
-              //               Padding(
-              //                 padding: const EdgeInsets.all(8.0),
-              //                 child: Row(
-              //                   crossAxisAlignment: CrossAxisAlignment.start,
-              //                   mainAxisAlignment:
-              //                       MainAxisAlignment.spaceBetween,
-              //                   children: [
-              //                     Text(
-              //                       'Change Focal Person',
-              //                       style: context.twelve400,
-              //                     ),
-              //                     const SizedBox(width: 8),
-              //                     const AssetIcon.monotone(
-              //                       size: 20,
-              //                       AssetIcons.edit,
-              //                     ),
-              //                   ],
-              //                 ),
-              //               ),
-              //               const AssetIcon.multicolor(
-              //                 size: 1,
-              //                 AssetIcons.line,
-              //               ),
-              //               // const Divider(
-              //               //   indent: 10,
-              //               //   endIndent: 90,
-              //               //   color: Colors.green,
-              //               //   thickness: 2,
-              //               // ),
-              //               Padding(
-              //                 padding: const EdgeInsets.all(8.0),
-              //                 child: Row(
-              //                   crossAxisAlignment: CrossAxisAlignment.start,
-              //                   mainAxisAlignment:
-              //                       MainAxisAlignment.spaceBetween,
-              //                   children: [
-              //                     Text(
-              //                       'Delete Focal Person',
-              //                       style: context.twelve400
-              //                           .withColor(context.error500),
-              //                     ),
-              //                     const SizedBox(width: 8),
-              //                     AssetIcon.monotone(
-              //                       size: 20,
-              //                       AssetIcons.delete_icon,
-              //                       color: context.error500,
-              //                     ),
-              //                   ],
-              //                 ),
-              //               ),
-              //             ],
-              //           ),
-              //         ),
-              //       );
-              //     },
-              //     child: const Padding(
-              //       padding: EdgeInsets.all(8.0),
-              //       child: AssetIcon.monotone(
-              //         AssetIcons.dot,
-              //         size: 4,
-              //       ),
-              //     ),
-              //   ),
-              // ),
-            ),
-          )
-        else
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Add Focal Person',
-                      style: context.twelve600,
-                    ),
-                    Text(
-                      '+11%',
-                      style: context.twelve600.withColor(context.primary500),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                CustomOutlinedButton.expanded(
-                  textStyle: context.sixteen400,
-                  borderColor: context.primary500,
-                  backgroundColor: context.white,
-                  foregroundColor: context.primary500,
-                  text: '+ Add Focal Person',
-                  onPressed: () {},
-                ),
-              ],
-            ),
-          ),
-        const SizedBox(height: 24),
-        const Divider(
-          color: Color(0xFFE5E5E5),
-          thickness: 1,
-          height: 1,
         ),
         const SizedBox(height: 12),
       ],
@@ -462,10 +201,34 @@ class DrawerItemData {
   static List<DrawerItemData> data(BuildContext context) {
     return [
       DrawerItemData(
-        title: 'Deals',
-        icon: AssetIcons.deals,
+        title: 'Offer Management',
+        icon: AssetIcons.offer_management_icon,
         onTap: () {
           Navigator.of(context).pop();
+        },
+      ),
+      DrawerItemData(
+        title: 'Rent/Purchase Management',
+        icon: AssetIcons.rent_icon,
+        onTap: () {
+          Navigator.of(context).pop();
+          // Navigator.of(context).push(MessagePage.route());
+        },
+      ),
+      DrawerItemData(
+        title: 'Funds Balance',
+        icon: AssetIcons.fund_balance_icon,
+        onTap: () {
+          Navigator.of(context).pop();
+          // Navigator.of(context).push(MessagePage.route());
+        },
+      ),
+      DrawerItemData(
+        title: 'Document Management',
+        icon: AssetIcons.documnet_management_icon,
+        onTap: () {
+          Navigator.of(context).pop();
+          // Navigator.of(context).push(MessagePage.route());
         },
       ),
       DrawerItemData(
@@ -474,14 +237,6 @@ class DrawerItemData {
         onTap: () {
           Navigator.of(context).pop();
           // Navigator.of(context).push(MessagePage.route());
-        },
-      ),
-      DrawerItemData(
-        title: 'Photography Service',
-        icon: AssetIcons.photography_service,
-        onTap: () {
-          Navigator.of(context).pop();
-          // Navigator.of(context).push(ConversationsPage.route());
         },
       ),
       DrawerItemData(

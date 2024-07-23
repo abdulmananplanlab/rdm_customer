@@ -1,6 +1,10 @@
 // ignore_for_file: constant_identifier_names
 
 enum AssetIcons {
+  documnet_management_icon,
+  fund_balance_icon,
+  offer_management_icon,
+  rent_icon,
   line,
   edit,
   password_eye,

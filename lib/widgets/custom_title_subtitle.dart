@@ -54,8 +54,6 @@ class CustomTitleSubtitle extends StatelessWidget {
             subtitle ?? '',
             style: subtitleStyle ?? context.sixteen400,
           )
-        else
-          const SizedBox.shrink(),
       ],
     );
   }
