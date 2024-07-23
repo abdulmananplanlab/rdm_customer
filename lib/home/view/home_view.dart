@@ -5,8 +5,13 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: const Placeholder(),
+    return const BaseScaffold(
+      appBar: CustomAppBar(
+        title: 'Home',
+      ),
+      body: Column(
+        children: [],
+      ),
     );
   }
 }

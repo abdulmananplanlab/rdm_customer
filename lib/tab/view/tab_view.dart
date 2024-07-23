@@ -56,11 +56,11 @@ class _TabBody extends StatelessWidget {
       case TabItem.home:
         return const HomePage();
       case TabItem.listings:
-        return const Text('data 1');
+        return const Center(child: Text('data 1'));
       case TabItem.offers:
-        return const Text('data 2');
+        return const Center(child: Text('data 2'));
       case TabItem.inspections:
-        return const Text('data 3');
+        return const Center(child: Text('data 3'));
       default:
         return const SizedBox.shrink();
     }
