@@ -5,13 +5,25 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  const BaseScaffold(
-      drawer: CustomDrawer(),
+    return BaseScaffold(
       appBar: CustomAppBar(
         title: 'Home',
-        leading: ,
+        leading: Builder(
+          builder: (context) {
+            return InkWell(
+              onTap: () {
+                Scaffold.of(context).openDrawer();
+              },
+              child: const Padding(
+                padding: EdgeInsets.all(12.0),
+                child: AssetIcon.monotone(AssetIcons.menu),
+              ),
+            );
+          },
+        ),
       ),
-      body: Column(
+      drawer: const CustomDrawer(),
+      body: const Column(
         children: [],
       ),
     );

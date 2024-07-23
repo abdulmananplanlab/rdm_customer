@@ -89,11 +89,11 @@ class _CustomDrawerState extends State<CustomDrawer> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const AssetIcon.monotone(AssetIcons.menu),
+              const AssetIcon.monotone(AssetIcons.arrow_left),
               InkWell(
                 onTap: () {
                   Navigator.pop(context);
