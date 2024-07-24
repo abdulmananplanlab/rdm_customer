@@ -72,11 +72,10 @@ class AppRoutes {
         //   path: ChangeNumberPage.route(),
         //   builder: (_, __) => const ChangeNumberPage(),
         // ),
-        // GoRoute(
-        //   path: NotificationPage.route(),
-        //   name: NotificationPage.route(),
-        //   builder: (_, __) => const NotificationPage(),
-        // ),
+        GoRoute(
+          path: NotificationPage.route(),
+          builder: (_, __) => const NotificationPage(),
+        ),
         GoRoute(
           path: TabPage.path(),
           builder: (_, state) => TabPage(

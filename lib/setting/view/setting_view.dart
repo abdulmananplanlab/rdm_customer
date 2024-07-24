@@ -5,6 +5,19 @@ class SettingView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const BaseScaffold();
+    return BaseScaffold(
+      appBar: const CustomAppBar(
+        title: 'Settings',
+      ),
+      body: Column(
+        children: [
+          const NotificationWidget(),
+          const VerticalSpacing(of: 24),
+          Divider(color: context.grey200),
+          const VerticalSpacing(of: 24),
+          const GeneralWidget(),
+        ],
+      ),
+    );
   }
 }

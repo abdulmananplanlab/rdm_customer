@@ -9,12 +9,14 @@ class CustomColorContainer extends StatelessWidget {
     this.color,
     this.borderColor,
     this.padding,
+    this.borderRadius,
   });
   final Widget? child;
   final EdgeInsetsGeometry? margin;
   final Color? color;
   final Color? borderColor;
   final EdgeInsetsGeometry? padding;
+  final BorderRadiusGeometry? borderRadius;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class CustomColorContainer extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border.all(color: borderColor ?? context.transparent),
         color: color ?? context.grey50,
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: borderRadius ?? BorderRadius.circular(4),
       ),
       child: child,
     );

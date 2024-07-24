@@ -2,7 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rdm_builder_customer/help_center/view/view.dart';
+import 'package:rdm_builder_customer/message/message.dart';
+import 'package:rdm_builder_customer/setting/view/view.dart';
+import 'package:rdm_builder_customer/widgets/custom_text_button.dart';
 import 'package:rdm_builder_customer/widgets/custom_title_subtitle.dart';
+import 'package:rdm_builder_customer/widgets/vertical_spacing.dart';
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({
@@ -50,14 +55,11 @@ class _CustomDrawerState extends State<CustomDrawer> {
             const SizedBox(
               height: 15,
             ),
-            TextButton(
-              style: TextButton.styleFrom(
-                foregroundColor: context.primary500,
-                textStyle: context.sixteen500,
-              ),
+            CustomTextButton(
+              title: 'Become an Inspector',
               onPressed: () {},
-              child: const Text('Become an Inspector'),
             ),
+            const VerticalSpacing(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: CustomOutlinedButton.expanded(
@@ -236,7 +238,7 @@ class DrawerItemData {
         icon: AssetIcons.messages,
         onTap: () {
           Navigator.of(context).pop();
-          // Navigator.of(context).push(MessagePage.route());
+          Navigator.of(context).push(MessagePage.route());
         },
       ),
       DrawerItemData(
@@ -244,7 +246,7 @@ class DrawerItemData {
         icon: AssetIcons.settings,
         onTap: () {
           Navigator.of(context).pop();
-          // Navigator.of(context).push(SettingPage.route());
+          Navigator.of(context).push(SettingPage.route());
         },
       ),
       DrawerItemData(
@@ -252,12 +254,7 @@ class DrawerItemData {
         icon: AssetIcons.help_center,
         onTap: () {
           Navigator.of(context).pop();
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute<TutorialPage>(
-          //     builder: (_) => const TutorialPage(),
-          //   ),
-          // );
+          Navigator.of(context).push(HelpCenterPage.route());
         },
       ),
       // DrawerItemData(

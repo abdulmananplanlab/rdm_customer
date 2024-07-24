@@ -5,6 +5,7 @@ enum AssetIcons {
   fund_balance_icon,
   offer_management_icon,
   rent_icon,
+  email_icon,
   line,
   edit,
   password_eye,

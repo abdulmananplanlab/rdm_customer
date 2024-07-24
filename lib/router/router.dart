@@ -8,6 +8,7 @@ import 'package:rdm_builder_customer/app/bloc/app_bloc.dart';
 import 'package:rdm_builder_customer/forget_password/forget_password.dart';
 import 'package:rdm_builder_customer/home/view/view.dart';
 import 'package:rdm_builder_customer/login/view/view.dart';
+import 'package:rdm_builder_customer/notification/notification.dart';
 import 'package:rdm_builder_customer/onboarding/onboarding.dart';
 import 'package:rdm_builder_customer/sign_up/view/view.dart';
 import 'package:rdm_builder_customer/splash/view/view.dart';
