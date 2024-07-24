@@ -83,6 +83,9 @@ enum AssetIcons {
   inspections,
   meet,
   calender_icon,
+  filter_icon,
+  heart_icon,
+  grey_share_icon,
   bathroom_icon;
 
   factory AssetIcons.fromName(String? name) => AssetIcons.values.firstWhere(
