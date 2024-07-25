@@ -1,5 +1,6 @@
 import 'package:common/common.dart';
 import 'package:flutter/material.dart';
+import 'package:rdm_builder_customer/help_center/live_chat/view/view.dart';
 import 'package:rdm_builder_customer/widgets/custom_title_subtitle.dart';
 import 'package:rdm_builder_customer/widgets/vertical_spacing.dart';
 
@@ -32,7 +33,14 @@ class LiveChatWidget extends StatelessWidget {
             backgroundColor: context.white,
             foregroundColor: context.primary500,
             text: 'Live Chat',
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const LiveChatPage(),
+                ),
+              );
+            },
           ),
           const VerticalSpacing(),
         ],

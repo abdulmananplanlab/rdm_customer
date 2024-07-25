@@ -30,18 +30,20 @@ class _FilterSelectionWidgetState extends State<FilterSelectionWidget> {
                 });
               },
               child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 22, vertical: 16),
-                  decoration: BoxDecoration(
-                    color:
-                        selectedIndex == 0 ? context.primary500 : context.white,
-                    borderRadius:
-                        const BorderRadius.only(topLeft: Radius.circular(16)),
-                  ),
-                  child: Text(widget.firstTab,
-                      style: context.sixteen400.withColor(selectedIndex == 1
-                          ? context.primary500
-                          : context.white))),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 22, vertical: 16),
+                decoration: BoxDecoration(
+                  color:
+                      selectedIndex == 0 ? context.primary500 : context.white,
+                  borderRadius:
+                      const BorderRadius.only(topLeft: Radius.circular(16)),
+                ),
+                child: Text(
+                  widget.firstTab,
+                  style: context.sixteen400.withColor(
+                      selectedIndex == 1 ? context.primary500 : context.white),
+                ),
+              ),
             ),
             GestureDetector(
               onTap: () {
