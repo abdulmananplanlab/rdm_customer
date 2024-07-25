@@ -1,9 +1,15 @@
 import 'package:common/common.dart';
 import 'package:flutter/material.dart';
+import 'package:rdm_builder_customer/home/components/bottom_details_widget.dart';
+import 'package:rdm_builder_customer/home/components/horizontal_listing_widget.dart';
+import 'package:rdm_builder_customer/home/view/listing_details/components/offer_price_widget.dart';
 import 'package:rdm_builder_customer/widgets/custom_color_container.dart';
+import 'package:rdm_builder_customer/widgets/custom_dot_container.dart';
 import 'package:rdm_builder_customer/widgets/custom_drawer.dart';
 import 'package:rdm_builder_customer/widgets/custom_icon_with_text_widget.dart';
 import 'package:rdm_builder_customer/widgets/custom_side_border_widget.dart';
+
+import 'verified_rating_widget.dart';
 
 class VerticalListingWidget extends StatelessWidget {
   const VerticalListingWidget({
@@ -39,16 +45,36 @@ class ListingDetailWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const ListingPriceWidget(),
+            OfferPriceAndIconWidget(
+              titleTextStyle: context.eighteen600,
+              title: '\$3,125 - \$3,750/mo',
+              isTrailing: true,
+              trailing: Row(
+                children: [
+                  const CustomDotContainer(),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  Text(
+                    "For Rent",
+                    style: context.ten400.withColor(context.grey500),
+                  ),
+                ],
+              ),
+            ),
             const SizedBox(height: 16),
             Text(
               '429 HERITAGE DR, FORT MURRAY AB T9 1S4, New York',
               style: context.sixteen600,
             ),
             const SizedBox(height: 16),
-            const VerifiedRatingWidget(),
+            const VerifiedRatingWidget(
+              isVerticalListing: true,
+            ),
             const SizedBox(height: 16),
-            const BottomDetailsWidget(),
+            const BottomDetailsWidget(
+              isVerticalListing: true,
+            ),
           ],
         ),
       ),
@@ -112,147 +138,5 @@ class CountPositionedImage extends StatelessWidget {
         ),
       ]),
     );
-  }
-}
-
-class ListingPriceWidget extends StatelessWidget {
-  const ListingPriceWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Expanded(
-          child: Text(
-            "\$3,125 - \$3,750/mo",
-            style: context.eighteen600,
-          ),
-        ),
-        Row(
-          children: [
-            CircleAvatar(
-              radius: 8,
-              backgroundColor: context.grey50,
-              child: Container(
-                height: 10,
-                width: 5,
-                decoration: ShapeDecoration(
-                  shape: const CircleBorder(),
-                  color: context.success500,
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            const Text("For Rent"),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
-class BottomDetailsWidget extends StatelessWidget {
-  const BottomDetailsWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return const CustomColorContainer(
-      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-      margin: EdgeInsets.all(0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          CustomIconWithText(
-            assetIcon: AssetIcon.monotone(
-              AssetIcons.bedroom_icon,
-            ),
-            text: '2',
-          ),
-          CustomIconWithText(
-            assetIcon: AssetIcon.monotone(
-              AssetIcons.bathroom_icon,
-            ),
-            text: '2',
-          ),
-          CustomIconWithText(
-            assetIcon: AssetIcon.monotone(
-              AssetIcons.pool_icon,
-            ),
-            text: '1',
-          ),
-          CustomIconWithText(
-            assetIcon: AssetIcon.monotone(
-              AssetIcons.square_feet,
-            ),
-            text: '6200 sq ft',
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class VerifiedRatingWidget extends StatelessWidget {
-  const VerifiedRatingWidget({
-    super.key,
-    this.isVertical = false,
-  });
-
-  final bool isVertical;
-  @override
-  Widget build(BuildContext context) {
-    return Row(children: [
-      CustomIconWithText(
-        assetIcon: const AssetIcon.multicolor(
-          AssetIcons.star_icon,
-          size: 14,
-        ),
-        text: '4.8',
-        style: context.ten400.withColor(context.grey500),
-      ),
-      const SizedBox(
-        width: 5,
-      ),
-      CustomIconWithText(
-        assetIcon: const AssetIcon.multicolor(
-          AssetIcons.verified_shield_icon,
-          size: 14,
-        ),
-        text: 'Verified',
-        style: context.ten400.withColor(context.grey500),
-      ),
-      isVertical
-          ? Row(
-              children: [
-                CustomIconWithText(
-                  assetIcon: const AssetIcon.multicolor(
-                    AssetIcons.star_icon,
-                    size: 14,
-                  ),
-                  text: '4.8',
-                  style: context.ten400.withColor(context.grey500),
-                ),
-                const SizedBox(
-                  width: 5,
-                ),
-                CustomIconWithText(
-                  assetIcon: const AssetIcon.multicolor(
-                    AssetIcons.verified_shield_icon,
-                    size: 14,
-                  ),
-                  text: 'Verified',
-                  style: context.ten400.withColor(context.grey500),
-                ),
-              ],
-            )
-          : const SizedBox.shrink()
-    ]);
   }
 }

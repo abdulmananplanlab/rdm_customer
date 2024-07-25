@@ -3,14 +3,10 @@ import 'package:flutter/material.dart';
 
 class CustomSideBorderWidget extends StatelessWidget {
   const CustomSideBorderWidget(
-      {super.key,
-      required this.child,
-      this.padding,
-      required this.width,
-      this.margin});
+      {super.key, required this.child, this.padding, this.width, this.margin});
   final Widget child;
   final EdgeInsets? padding;
-  final double width;
+  final double? width;
   final EdgeInsetsGeometry? margin;
 
   @override
