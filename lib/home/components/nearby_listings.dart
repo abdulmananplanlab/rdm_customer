@@ -1,7 +1,7 @@
 import 'package:common/common.dart';
 import 'package:flutter/material.dart';
-import 'package:rdm_builder_customer/home/components/property_chips.dart';
 import 'package:rdm_builder_customer/home/components/horizontal_listing_widget.dart';
+import 'package:rdm_builder_customer/home/components/property_chips.dart';
 
 class NearByListings extends StatelessWidget {
   const NearByListings({
@@ -30,7 +30,7 @@ class NearByListings extends StatelessWidget {
             height: 16,
           ),
           SizedBox(
-            height: 355,
+            height: 357,
             child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: 5,
