@@ -24,6 +24,8 @@ class CustomBorderListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomSideBorderWidget(
+      width: 400,
+      margin: const EdgeInsets.only(right: 16),
       padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
