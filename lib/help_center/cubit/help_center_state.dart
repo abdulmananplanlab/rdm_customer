@@ -2,17 +2,18 @@ part of 'help_center_cubit.dart';
 
 class HelpCenterState extends Equatable {
   const HelpCenterState({
-    this.isExpanded = false,
+    required this.helpCenterList,
   });
-  final bool isExpanded;
+  final List<HelpCenterModel> helpCenterList;
   @override
-  List<Object?> get props => [isExpanded];
+  List<Object?> get props => [helpCenterList];
 
   HelpCenterState copyWith({
     bool? isExpanded,
+    List<HelpCenterModel>? helpCenterList,
   }) {
     return HelpCenterState(
-      isExpanded: isExpanded ?? this.isExpanded,
+      helpCenterList: helpCenterList ?? this.helpCenterList,
     );
   }
 }

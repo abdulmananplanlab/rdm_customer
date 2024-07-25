@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rdm_builder_customer/help_center/components/contact_us_widget.dart';
 import 'package:rdm_builder_customer/help_center/components/frequently_asking_widget.dart';
+import 'package:rdm_builder_customer/help_center/components/live_chat_widget.dart';
 import 'package:rdm_builder_customer/help_center/cubit/help_center_cubit.dart';
 import 'package:rdm_builder_customer/widgets/base_scaffold.dart';
 import 'package:rdm_builder_customer/widgets/vertical_spacing.dart';
