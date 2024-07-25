@@ -11,6 +11,13 @@ class PropertyTypeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<String> propertyTypes = const [
+      'Apartment',
+      'Condos',
+      'Townhome',
+      'Single Family',
+      'Multi-Family',
+    ];
     return CustomTextWithTextFieldWidget(
       text: 'Property Type',
       hintText: 'Select',
@@ -34,7 +41,7 @@ class PropertyTypeWidget extends StatelessWidget {
               itemCount: 5,
               itemBuilder: (context, index) {
                 return ListTextWidget(
-                  title: "Joyia",
+                  title: propertyTypes[index],
                   onPressed: () {
                     Navigator.pop(context, index);
                   },

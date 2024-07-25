@@ -7,11 +7,11 @@ class CustomSideBorderWidget extends StatelessWidget {
       required this.child,
       this.padding,
       required this.width,
-      required this.margin});
+      this.margin});
   final Widget child;
   final EdgeInsets? padding;
   final double width;
-  final EdgeInsetsGeometry margin;
+  final EdgeInsetsGeometry? margin;
 
   @override
   Widget build(BuildContext context) {

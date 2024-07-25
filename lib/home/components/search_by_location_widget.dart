@@ -1,5 +1,6 @@
 import 'package:common/common.dart';
 import 'package:flutter/material.dart';
+import 'package:rdm_builder_customer/home/view/home_filter/home_filter_page.dart';
 
 class SearchLocationWidget extends StatelessWidget {
   const SearchLocationWidget({super.key, required this.title});
@@ -16,9 +17,9 @@ class SearchLocationWidget extends StatelessWidget {
         const SizedBox(
           height: 8,
         ),
-        const Row(
+        Row(
           children: <Widget>[
-            Expanded(
+            const Expanded(
               child: CustomTextFormField(
                 keyboardType: TextInputType.emailAddress,
                 borderRadius: BorderRadius.all(
@@ -32,10 +33,16 @@ class SearchLocationWidget extends StatelessWidget {
                 hintText: 'Search Property...',
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 8.0,
             ),
-            PropertyFilterWidget(),
+            PropertyFilterWidget(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return const HomeFilterPage();
+                }));
+              },
+            ),
           ],
         ),
       ],
@@ -46,12 +53,15 @@ class SearchLocationWidget extends StatelessWidget {
 class PropertyFilterWidget extends StatelessWidget {
   const PropertyFilterWidget({
     super.key,
+    this.onTap,
   });
+
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: onTap,
       child: Container(
           decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(8.0)),

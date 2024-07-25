@@ -77,6 +77,11 @@ extension TextThemeContext on BuildContext {
         fontSize: 12,
         fontWeight: FontWeight.w600,
       );
+
+  TextStyle get ten400 => basicStyle.withCustomFont(
+        fontSize: 10,
+        fontWeight: FontWeight.w400,
+      );
 }
 
 extension TextStyleWithFont on TextStyle {

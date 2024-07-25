@@ -298,6 +298,8 @@ extension AppColorsContext on BuildContext {
 
   Color get grey20 => const Color(0xFFE9E9EA);
 
+  Color get grey10 => const Color(0xFF091409);
+
   Color get pink50 => const Color(0xFFFCE6E6);
 
   Color get transparent => const Color(0xFFFFFFFF);
