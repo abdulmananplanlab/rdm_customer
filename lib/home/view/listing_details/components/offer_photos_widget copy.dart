@@ -1,6 +1,6 @@
 import 'package:common/common.dart';
 import 'package:flutter/material.dart';
-import 'package:realwealtdy_builder/home/components/recent_offer_widgets.dart';
+import 'package:rdm_builder_customer/widgets/custom_drawer.dart';
 
 class OfferPhotosWidget extends StatelessWidget {
   const OfferPhotosWidget({

@@ -1,9 +1,8 @@
 import 'package:common/common.dart';
 import 'package:flutter/material.dart';
-import 'package:realwealtdy_builder/home/components/offer_price_widget.dart';
-import 'package:realwealtdy_builder/home/offer_details/components/home_profile_list_tile_widget.dart';
-import 'package:realwealtdy_builder/widgets/custom_check_box.dart';
-import 'package:realwealtdy_builder/widgets/custom_side_border_widget.dart';
+import 'package:rdm_builder_customer/home/view/listing_details/components/offer_price_widget.dart';
+import 'package:rdm_builder_customer/widgets/custom_check_box.dart';
+import 'package:rdm_builder_customer/widgets/custom_side_border_widget.dart';
 
 class OfferSideBorderWidget extends StatefulWidget {
   const OfferSideBorderWidget({
@@ -45,12 +44,12 @@ class _OfferSideBorderWidgetState extends State<OfferSideBorderWidget> {
                   title: 'Active Offer',
                   subtitle: '\$1,500,000',
                 ),
-                const HomeProfileListTileWidget(
-                  title: 'Buyer',
-                  subTitle: 'Esther Howard',
-                  imageUrl:
-                      'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-                ),
+                // const HomeProfileListTileWidget(
+                //   title: 'Buyer',
+                //   subTitle: 'Esther Howard',
+                //   imageUrl:
+                //       'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+                // ),
                 const SizedBox(height: 20),
                 CustomInkWell(
                   onTap: () {
@@ -201,12 +200,12 @@ class _OfferSideBorderWidgetState extends State<OfferSideBorderWidget> {
                     ),
                   ),
                 ),
-                const HomeProfileListTileWidget(
-                  title: 'Buyer',
-                  subTitle: 'Esther Howard',
-                  imageUrl:
-                      'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-                ),
+                // const HomeProfileListTileWidget(
+                //   title: 'Buyer',
+                //   subTitle: 'Esther Howard',
+                //   imageUrl:
+                //       'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+                // ),
               ],
             ),
         ],

@@ -15,6 +15,20 @@ class HomeView extends StatelessWidget {
     return BaseScaffold(
       appBar: CustomAppBar(
         title: 'Home',
+        actions: [
+          GestureDetector(
+            onTap: () {
+              // context.push(NotificationPage.route());
+              Navigator.push(
+                context,
+                MaterialPageRoute<void>(
+                  builder: (_) => const NotificationPage(),
+                ),
+              );
+            },
+            child: const AssetIcon.monotone(AssetIcons.alert),
+          ),
+        ],
         leading: Builder(
           builder: (context) {
             return InkWell(
