@@ -112,6 +112,7 @@ class _LiveChatViewState extends State<LiveChatView> {
     return Align(
       alignment: message.isMe ? Alignment.centerRight : Alignment.centerLeft,
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
           message.isMe
               ? const SizedBox.shrink()
@@ -121,8 +122,9 @@ class _LiveChatViewState extends State<LiveChatView> {
                   ),
                 ),
           const HorizontalSpacing(),
-          Expanded(
+          Flexible(
             child: Container(
+              width: context.screenWidth * 0.7,
               margin: EdgeInsets.only(bottom: index == 1 ? 16 : 4),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(4),
