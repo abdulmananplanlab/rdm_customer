@@ -110,6 +110,7 @@ class ClearFilterButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomOutlinedButton.expanded(
+        isSpacer: true,
         borderColor: context.transparent,
         foregroundColor: context.error500,
         text: 'Clear Filters',

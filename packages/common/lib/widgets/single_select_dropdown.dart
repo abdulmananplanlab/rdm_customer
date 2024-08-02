@@ -25,6 +25,7 @@ class SingleSelectDropdown<T> extends StatelessWidget {
     this.readOnly = false,
     this.enabled = true,
     this.loading = false,
+    this.isExpanded = true,
   });
 
   final T? selectedOption;
@@ -45,6 +46,7 @@ class SingleSelectDropdown<T> extends StatelessWidget {
   final bool readOnly;
   final bool enabled;
   final bool loading;
+  final bool isExpanded;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +59,7 @@ class SingleSelectDropdown<T> extends StatelessWidget {
           const SizedBox(height: 4),
         ],
         DropdownButtonFormField<T>(
-          isExpanded: true,
+          isExpanded: isExpanded,
           onChanged: enabled && !loading ? onChanged : null,
           onTap: onTap,
           value: selectedOption,

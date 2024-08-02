@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rdm_builder_customer/document_management/view/view.dart';
 import 'package:rdm_builder_customer/help_center/view/view.dart';
 import 'package:rdm_builder_customer/message/message.dart';
 import 'package:rdm_builder_customer/setting/view/view.dart';
@@ -230,7 +231,7 @@ class DrawerItemData {
         icon: AssetIcons.documnet_management_icon,
         onTap: () {
           Navigator.of(context).pop();
-          // Navigator.of(context).push(MessagePage.route());
+          Navigator.of(context).push(DocumentManagementPage.route());
         },
       ),
       DrawerItemData(

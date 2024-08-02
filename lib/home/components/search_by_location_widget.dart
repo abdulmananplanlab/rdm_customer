@@ -38,9 +38,14 @@ class SearchLocationWidget extends StatelessWidget {
             ),
             PropertyFilterWidget(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return const HomeFilterPage();
-                }));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const HomeFilterPage();
+                    },
+                  ),
+                );
               },
             ),
           ],
@@ -63,11 +68,13 @@ class PropertyFilterWidget extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-          decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-              border: Border.all(color: context.grey200)),
-          padding: const EdgeInsets.all(12.0),
-          child: const AssetIcon.multicolor(AssetIcons.filter_icon)),
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+          border: Border.all(color: context.grey200),
+        ),
+        padding: const EdgeInsets.all(12.0),
+        child: const AssetIcon.multicolor(AssetIcons.filter_icon),
+      ),
     );
   }
 }

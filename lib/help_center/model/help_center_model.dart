@@ -8,6 +8,7 @@ class HelpCenterModel {
     required this.subTitle,
     required this.isExpanded,
   });
+
   HelpCenterModel copyWith({bool? isExpanded}) {
     return HelpCenterModel(
       title: title,

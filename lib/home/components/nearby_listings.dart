@@ -32,11 +32,12 @@ class NearByListings extends StatelessWidget {
           SizedBox(
             height: 357,
             child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: 5,
-                itemBuilder: (context, index) => const HorizontalListingsWidget(
-                      margin: EdgeInsets.only(right: 16),
-                    )),
+              scrollDirection: Axis.horizontal,
+              itemCount: 5,
+              itemBuilder: (context, index) => const HorizontalListingsWidget(
+                margin: EdgeInsets.only(right: 16),
+              ),
+            ),
           ),
         ],
       ),
