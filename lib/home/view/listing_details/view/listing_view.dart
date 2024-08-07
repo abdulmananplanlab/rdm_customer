@@ -1,5 +1,7 @@
 import 'package:common/common.dart';
 import 'package:flutter/material.dart';
+import 'package:rdm_builder_customer/Identity_verification/Identity_verification/view/view.dart';
+import 'package:rdm_builder_customer/home/components/custom_bottomsheet_tile.dart';
 import 'package:rdm_builder_customer/home/view/listing_details/components/heat_water_widget.dart';
 import 'package:rdm_builder_customer/home/view/listing_details/components/offer_detail_list_widget.dart';
 import 'package:rdm_builder_customer/home/view/listing_details/components/offer_photos_widget.dart';
@@ -7,10 +9,12 @@ import 'package:rdm_builder_customer/home/view/listing_details/components/offer_
 import 'package:rdm_builder_customer/home/view/listing_details/components/offer_storage_widgets.dart';
 import 'package:rdm_builder_customer/home/view/listing_details/components/property_offers_widget.dart';
 import 'package:rdm_builder_customer/home/view/listing_details/components/rating_widget_bar%20copy.dart';
+import 'package:rdm_builder_customer/home/view/listing_details/components/transit_widget.dart';
 import 'package:rdm_builder_customer/home/view/listing_details/components/unit_pricing_widget.dart';
 import 'package:rdm_builder_customer/widgets/base_scaffold.dart';
 import 'package:rdm_builder_customer/widgets/custom_border_list_tile.dart';
 import 'package:rdm_builder_customer/widgets/custom_drawer.dart';
+import 'package:rdm_builder_customer/widgets/custom_tab_bar.dart';
 import 'package:rdm_builder_customer/widgets/custom_title_subtitle.dart';
 
 class PropertyDetailScreen extends StatelessWidget {
@@ -26,18 +30,46 @@ class PropertyDetailScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.0),
-        child: SingleChildScrollView(
-          child: PropertyDetailsWidget(),
+        child: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: PropertyDetailsWidget(),
+              ),
+            ),
+            BookNowBottomWidget()
+          ],
         ),
       ),
     );
   }
 }
 
-class PropertyDetailsWidget extends StatelessWidget {
+class PropertyDetailsWidget extends StatefulWidget {
   const PropertyDetailsWidget({
     super.key,
   });
+
+  @override
+  State<PropertyDetailsWidget> createState() => _PropertyDetailsWidgetState();
+}
+
+class _PropertyDetailsWidgetState extends State<PropertyDetailsWidget>
+    with TickerProviderStateMixin {
+  late final TabController _tabControllerLengthFour;
+  bool isAccept = true;
+
+  @override
+  void initState() {
+    _tabControllerLengthFour = TabController(length: 4, vsync: this);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _tabControllerLengthFour.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -288,29 +320,265 @@ class PropertyDetailsWidget extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         const SizedBox(height: 16),
-        // CustomTabBar(
-        //   controller: _tabControllerLengthFour,
-        //   tabs: const [
-        //     'Transit',
-        //     'Parks & Recreation',
-        //     'Education',
-        //     'Food & Drink',
-        //   ],
-        //   //controller: _tabControllerLengthThree,
-        // ),
-        // const SizedBox(height: 16),
-        // SizedBox(
-        //   height: MediaQuery.of(context).size.height * 0.9,
-        //   child: TabBarView(
-        //     controller: _tabControllerLengthFour,
-        //     children: const [
-        //       TransitWidget(),
-        //       TransitWidget(),
-        //       TransitWidget(),
-        //       TransitWidget(),
-        //     ],
-        //   ),
-        // ),
+        CustomTabBar(
+          controller: _tabControllerLengthFour,
+          tabs: const [
+            'Transit',
+            'Parks & Recreation',
+            'Education',
+            'Food & Drink',
+          ],
+          //controller: _tabControllerLengthThree,
+        ),
+        const SizedBox(height: 16),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.9,
+          child: TabBarView(
+            controller: _tabControllerLengthFour,
+            children: const [
+              TransitWidget(),
+              TransitWidget(),
+              TransitWidget(),
+              TransitWidget(),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class BookNowBottomWidget extends StatelessWidget {
+  const BookNowBottomWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 16.0),
+      child: Row(children: [
+        Expanded(
+            child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "\$3,125 - \$3,750/mo",
+              style: context.twenty600?.withColor(context.success500),
+            ),
+            Text('From Jun 23',
+                style: context.twelve400.withColor(context.grey900)),
+          ],
+        )),
+        CustomElevatedButton(
+            onPressed: () {
+              showModalBottomSheet(
+                backgroundColor: context.white,
+                scrollControlDisabledMaxHeightRatio: 8 / 11,
+                context: context,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(8.0),
+                  ),
+                ),
+                builder: (context) {
+                  return const BankDetailsSheetWidget();
+                },
+              );
+            },
+            text: 'Book Now')
+      ]),
+    );
+  }
+}
+
+class BankDetailsSheetWidget extends StatelessWidget {
+  const BankDetailsSheetWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const CustomBottomSheet(
+        isExpanded: false,
+        showDragHandle: false,
+        customTitle: CustomBottomSheetTile(
+          title: 'Add Banking Details',
+          isDivider: false,
+        ),
+        content: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          child: Column(
+            children: [
+              BankNameWidget(),
+              SizedBox(
+                height: 16.0,
+              ),
+              AccountHolderWidget(),
+              SizedBox(
+                height: 16.0,
+              ),
+              Row(
+                children: [
+                  Expanded(child: BankCodeWidget()),
+                  SizedBox(
+                    width: 16,
+                  ),
+                  Expanded(child: BranchCodeWidget()),
+                ],
+              ),
+              SizedBox(
+                height: 16.0,
+              ),
+              AccountNumberWidget(),
+              SizedBox(
+                height: 16,
+              ),
+              ProceedDetailsButton(),
+            ],
+          ),
+        ));
+  }
+}
+
+class ProceedDetailsButton extends StatelessWidget {
+  const ProceedDetailsButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomElevatedButton.expanded(
+      text: 'Proceed',
+      onPressed: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return const IdentityVerificationPage();
+        }));
+      },
+    );
+  }
+}
+
+class BankNameWidget extends StatelessWidget {
+  const BankNameWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Bank Name',
+          style: context.sixteen400,
+        ),
+        const SizedBox(
+          height: 8,
+        ),
+        CustomTextFormField(
+          onChanged: (value) {},
+          hintText: 'ex. Central Bank',
+          keyboardType: TextInputType.text,
+        ),
+      ],
+    );
+  }
+}
+
+class BranchCodeWidget extends StatelessWidget {
+  const BranchCodeWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Branch Code',
+          style: context.sixteen400,
+        ),
+        const SizedBox(
+          height: 8,
+        ),
+        CustomTextFormField(
+          onChanged: (value) {},
+          hintText: 'ex. 4231',
+          keyboardType: TextInputType.text,
+        ),
+      ],
+    );
+  }
+}
+
+class AccountHolderWidget extends StatelessWidget {
+  const AccountHolderWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Account Holder Name',
+          style: context.sixteen400,
+        ),
+        const SizedBox(
+          height: 8,
+        ),
+        CustomTextFormField(
+          onChanged: (value) {},
+          hintText: 'ex. Emma Watson',
+          keyboardType: TextInputType.text,
+        ),
+      ],
+    );
+  }
+}
+
+class BankCodeWidget extends StatelessWidget {
+  const BankCodeWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Bank Code',
+          style: context.sixteen400,
+        ),
+        const SizedBox(
+          height: 8,
+        ),
+        CustomTextFormField(
+          onChanged: (value) {},
+          hintText: 'ex. CENB',
+          keyboardType: TextInputType.text,
+        ),
+      ],
+    );
+  }
+}
+
+class AccountNumberWidget extends StatelessWidget {
+  const AccountNumberWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Account Number',
+          style: context.sixteen400,
+        ),
+        const SizedBox(
+          height: 8,
+        ),
+        CustomTextFormField(
+          onChanged: (value) {},
+          hintText: 'ex. CENB867530912345',
+          keyboardType: TextInputType.text,
+        ),
       ],
     );
   }

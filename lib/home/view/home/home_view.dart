@@ -1,4 +1,4 @@
-part of '../view.dart';
+part of 'view.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -18,7 +18,6 @@ class HomeView extends StatelessWidget {
         actions: [
           GestureDetector(
             onTap: () {
-              // context.push(NotificationPage.route());
               Navigator.push(
                 context,
                 MaterialPageRoute<void>(

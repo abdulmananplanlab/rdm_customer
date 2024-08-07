@@ -41,7 +41,7 @@ class HomeFilterScreen extends StatelessWidget {
                     secondTab: 'Rent',
                   ),
                   const SizedBox(
-                    height: 40,
+                    height: 20,
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,6 +110,7 @@ class ClearFilterButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomOutlinedButton.expanded(
+        isSpacer: true,
         borderColor: context.transparent,
         foregroundColor: context.error500,
         text: 'Clear Filters',

@@ -12,8 +12,10 @@ class HorizontalListingsWidget extends StatelessWidget {
   const HorizontalListingsWidget({
     super.key,
     this.margin,
+    this.listingIndex,
   });
   final EdgeInsetsGeometry? margin;
+  final int? listingIndex;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

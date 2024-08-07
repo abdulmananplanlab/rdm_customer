@@ -55,11 +55,11 @@ class _TabBody extends StatelessWidget {
     switch (currentTab) {
       case TabItem.home:
         return const HomePage();
-      case TabItem.listings:
-        return const Center(child: Text('data 1'));
-      case TabItem.offers:
+      case TabItem.search:
+        return const SearchListingPage();
+      case TabItem.favoriteItems:
         return const Center(child: Text('data 2'));
-      case TabItem.inspections:
+      case TabItem.more:
         return const Center(child: Text('data 3'));
       default:
         return const SizedBox.shrink();

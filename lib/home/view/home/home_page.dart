@@ -1,4 +1,4 @@
-part of '../view.dart';
+part of 'view.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -6,6 +6,9 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const HomeView();
+    return BlocProvider(
+      create: (context) => HomeCubit(),
+      child: const HomeView(),
+    );
   }
 }

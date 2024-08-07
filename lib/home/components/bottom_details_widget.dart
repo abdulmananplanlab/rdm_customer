@@ -36,9 +36,9 @@ class BottomDetailsWidget extends StatelessWidget {
               ? const SizedBox.shrink()
               : const CustomIconWithText(
                   assetIcon: AssetIcon.monotone(
-                    AssetIcons.pool_icon,
+                    AssetIcons.car_icon,
                   ),
-                  text: '1',
+                  text: '2',
                 ),
           const CustomIconWithText(
             assetIcon: AssetIcon.monotone(

@@ -1,12 +1,10 @@
 import 'package:common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:rdm_builder_customer/home/components/bottom_details_widget.dart';
-import 'package:rdm_builder_customer/home/components/horizontal_listing_widget.dart';
 import 'package:rdm_builder_customer/home/view/listing_details/components/offer_price_widget.dart';
 import 'package:rdm_builder_customer/widgets/custom_color_container.dart';
 import 'package:rdm_builder_customer/widgets/custom_dot_container.dart';
 import 'package:rdm_builder_customer/widgets/custom_drawer.dart';
-import 'package:rdm_builder_customer/widgets/custom_icon_with_text_widget.dart';
 import 'package:rdm_builder_customer/widgets/custom_side_border_widget.dart';
 
 import 'verified_rating_widget.dart';
@@ -26,6 +24,34 @@ class VerticalListingWidget extends StatelessWidget {
         children: [
           ListingImageWidget(),
           ListingDetailWidget(),
+        ],
+      ),
+    );
+  }
+}
+
+class ListingImageWidget extends StatelessWidget {
+  const ListingImageWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: const BorderRadius.only(
+        topLeft: Radius.circular(12),
+      ),
+      child: Stack(
+        children: [
+          NetworkImageWidget(
+            width: 120,
+            height: MediaQuery.of(context).size.height * 0.34,
+            imageUrl:
+                'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+          ),
+          const CountPositionedImage(
+            title: '1 / 20',
+          ),
         ],
       ),
     );
@@ -77,34 +103,6 @@ class ListingDetailWidget extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class ListingImageWidget extends StatelessWidget {
-  const ListingImageWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: const BorderRadius.only(
-        topLeft: Radius.circular(12),
-      ),
-      child: Stack(
-        children: [
-          NetworkImageWidget(
-            width: 120,
-            height: MediaQuery.of(context).size.height * 0.34,
-            imageUrl:
-                'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-          ),
-          const CountPositionedImage(
-            title: '1 / 20',
-          ),
-        ],
       ),
     );
   }

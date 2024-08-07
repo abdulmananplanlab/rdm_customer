@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:rdm_builder_customer/account_verification/account_verification.dart';
 import 'package:rdm_builder_customer/app/bloc/app_bloc.dart';
 import 'package:rdm_builder_customer/forget_password/forget_password.dart';
-import 'package:rdm_builder_customer/home/view/view.dart';
+import 'package:rdm_builder_customer/home/view/home/view.dart';
 import 'package:rdm_builder_customer/login/view/view.dart';
 import 'package:rdm_builder_customer/notification/notification.dart';
 import 'package:rdm_builder_customer/onboarding/onboarding.dart';

@@ -3,49 +3,55 @@ import 'package:flutter/material.dart';
 import 'package:rdm_builder_customer/home/view/home_filter/home_filter_page.dart';
 
 class SearchLocationWidget extends StatelessWidget {
-  const SearchLocationWidget({super.key, required this.title});
+  const SearchLocationWidget(
+      {super.key, this.title, this.hintText, this.padding});
 
-  final String title;
+  final String? title;
+  final String? hintText;
+  final EdgeInsetsGeometry? padding;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('Location',
-            style: context.sixteen400.copyWith(color: context.grey900)),
-        const SizedBox(
-          height: 8,
-        ),
-        Row(
-          children: <Widget>[
-            const Expanded(
-              child: CustomTextFormField(
-                keyboardType: TextInputType.emailAddress,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(8.0),
+    return Padding(
+      padding: padding ?? const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(title ?? '',
+              style: context.sixteen400.copyWith(color: context.grey900)),
+          const SizedBox(
+            height: 8,
+          ),
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: CustomTextFormField(
+                  keyboardType: TextInputType.emailAddress,
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(8.0),
+                  ),
+                  prefixIcon: const Icon(Icons.search),
+                  contentPadding: const EdgeInsets.symmetric(
+                    vertical: 12,
+                    horizontal: 16,
+                  ),
+                  hintText: hintText ?? 'Search Property...',
                 ),
-                prefixIcon: Icon(Icons.search),
-                contentPadding: EdgeInsets.symmetric(
-                  vertical: 12,
-                  horizontal: 16,
-                ),
-                hintText: 'Search Property...',
               ),
-            ),
-            const SizedBox(
-              width: 8.0,
-            ),
-            PropertyFilterWidget(
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return const HomeFilterPage();
-                }));
-              },
-            ),
-          ],
-        ),
-      ],
+              const SizedBox(
+                width: 8.0,
+              ),
+              PropertyFilterWidget(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return const HomeFilterPage();
+                  }));
+                },
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

@@ -20,13 +20,14 @@ class CustomBottomSheetTile extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 title,
-                style: textStyle ?? context.twenty600,
+                style:
+                    textStyle ?? context.twenty600?.withColor(context.grey900),
               ),
               CustomInkWell(
                 onTap: () {
