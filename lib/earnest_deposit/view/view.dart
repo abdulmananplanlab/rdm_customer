@@ -3,6 +3,7 @@ import 'package:common/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:rdm_builder_customer/Identity_verification/Identity_verification/view/view.dart';
 import 'package:rdm_builder_customer/home/view/listing_details/components/offer_price_widget.dart';
+import 'package:rdm_builder_customer/property_inspection/view/view.dart';
 import 'package:rdm_builder_customer/widgets/base_scaffold.dart';
 import 'package:rdm_builder_customer/widgets/custom_color_container.dart';
 import 'package:rdm_builder_customer/widgets/custom_dot_container.dart';

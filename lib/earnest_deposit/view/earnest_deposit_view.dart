@@ -251,7 +251,12 @@ class EarnestDepositScreen extends StatelessWidget {
                       ),
                       CustomElevatedButton.expanded(
                         text: 'Proceed',
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return const PropertyInspectionPage();
+                          }));
+                        },
                       ),
                       const SizedBox(
                         height: 8,
