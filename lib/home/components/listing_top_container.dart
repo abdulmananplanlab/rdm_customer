@@ -6,7 +6,10 @@ import 'package:rdm_builder_customer/widgets/custom_drawer.dart';
 class ListingTopContainer extends StatelessWidget {
   const ListingTopContainer({
     super.key,
+    this.listingIndex,
   });
+
+  final int? listingIndex;
 
   @override
   Widget build(BuildContext context) {

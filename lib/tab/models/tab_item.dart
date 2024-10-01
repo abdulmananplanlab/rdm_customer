@@ -2,9 +2,9 @@ part of 'models.dart';
 
 enum TabItem {
   home(AssetIcons.home),
-  listings(AssetIcons.listings),
-  offers(AssetIcons.offers),
-  inspections(AssetIcons.inspections),
+  search(AssetIcons.search_icon),
+  favoriteItems(AssetIcons.favourite_listing_icon),
+  more(AssetIcons.more_option_icon),
   ;
 
   const TabItem(this.icon);
@@ -14,12 +14,12 @@ enum TabItem {
     switch (this) {
       case TabItem.home:
         return 'Home';
-      case TabItem.listings:
-        return 'Listings';
-      case TabItem.offers:
-        return 'Offers';
-      case TabItem.inspections:
-        return 'Inspections';
+      case TabItem.search:
+        return 'Search';
+      case TabItem.favoriteItems:
+        return 'Favorites';
+      case TabItem.more:
+        return 'More';
       default:
         return '';
     }
@@ -31,9 +31,9 @@ enum TabItem {
 
   static const List<TabItem> items = [
     home,
-    listings,
-    offers,
-    inspections,
+    search,
+    favoriteItems,
+    more,
     // blank,
   ];
 

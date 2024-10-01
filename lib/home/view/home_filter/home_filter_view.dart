@@ -41,7 +41,7 @@ class HomeFilterScreen extends StatelessWidget {
                     secondTab: 'Rent',
                   ),
                   const SizedBox(
-                    height: 40,
+                    height: 20,
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

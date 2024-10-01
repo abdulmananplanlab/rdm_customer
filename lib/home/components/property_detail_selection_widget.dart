@@ -30,6 +30,7 @@ class PropertyDetailsOptions extends StatelessWidget {
             ),
             SearchLocationWidget(
               title: 'Location',
+              padding: EdgeInsets.zero,
             ),
             SizedBox(
               height: 12,
