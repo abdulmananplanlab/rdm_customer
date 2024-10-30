@@ -43,7 +43,7 @@ class AppRouter {
                   }
 
                   // if the user is not logged in, they must login
-                  final loggedIn = !appState.isAuthenticated;
+                  final loggedIn = appState.isAuthenticated;
                   final isOnboared = await appBloc.authRepository.onboarding;
                   final loggingIn = state.matches(OnBoardingPage.route());
                   if (!loggedIn) {

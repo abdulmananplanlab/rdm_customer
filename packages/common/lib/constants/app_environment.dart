@@ -4,12 +4,12 @@ import 'package:common/common.dart';
 enum AppEnvironment {
   prod(
     config: HttpClientConfig(
-      baseUrl: 'https://demo---cxai-service-hzs3agupka-uc.a.run.app/',
+      baseUrl: 'https://sbx-api.realwealtdy.net/',
     ),
   ),
   dev(
     config: HttpClientConfig(
-      baseUrl: 'https://demo---cxai-service-hzs3agupka-uc.a.run.app/',
+      baseUrl: 'https://sbx-api.realwealtdy.net/',
       enableLogs: true,
     ),
   );

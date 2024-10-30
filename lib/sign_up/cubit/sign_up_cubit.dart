@@ -2,13 +2,16 @@ import 'package:bloc/bloc.dart';
 import 'package:common/common.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
+import 'package:rdm_builder_customer/sign_up/repository/model/sign_up_model.dart';
 import 'package:rdm_builder_customer/sign_up/repository/repository.dart';
 
 part 'sign_up_state.dart';
 
 class SignUpCubit extends Cubit<SignUpState> {
-  SignUpCubit({required this.signUpRepository}) : super(const SignUpState());
+  SignUpCubit({required this.signUpRepository, required this.authCubit})
+      : super(const SignUpState());
   final SignUpRepository signUpRepository;
+  final void Function(SignUpModel) authCubit;
 
   void isVisible(bool? newVisible) {
     emit(state.copyWith(isVisible: newVisible));
@@ -42,7 +45,7 @@ class SignUpCubit extends Cubit<SignUpState> {
       state.copyWith(
         email: email,
         status: Formz.validate(
-            [email, state.lastName, state.password, state.firstName]),
+            [email, state.firstName, state.lastName, state.password]),
       ),
     );
   }
@@ -53,25 +56,46 @@ class SignUpCubit extends Cubit<SignUpState> {
       state.copyWith(
         password: password,
         status: Formz.validate(
-            [password, state.email, state.lastName, state.firstName]),
+            [password, state.email, state.firstName, state.lastName]),
       ),
     );
   }
 
-  Future<void> signUp() async {
-    if (state.status.isValidated) {
-      emit(state.copyWith(status: FormzStatus.submissionInProgress));
-      try {
-        await signUpRepository.signUpWithEmailPassword(
-          lastName: state.firstName.value,
-          firstName: state.lastName.value,
-          email: state.email.value,
-          password: state.password.value,
-        );
-        emit(state.copyWith(status: FormzStatus.submissionSuccess));
-      } catch (_) {
-        emit(state.copyWith(status: FormzStatus.submissionFailure));
-      }
+  Future<void> signUpWithEmail() async {
+    if (!state.status.isValidated) return;
+
+    emit(
+      state.copyWith(
+        status: FormzStatus.submissionInProgress,
+        signUpState: state.signUpState.toLoading(),
+      ),
+    );
+    try {
+      final data = await signUpRepository.signUpWithEmailPassword(
+        firstName: state.firstName.value,
+        lastName: state.lastName.value,
+        email: state.email.value,
+        password: state.password.value,
+      );
+
+      emit(
+        state.copyWith(
+          status: FormzStatus.submissionSuccess,
+          signUpState: state.signUpState.toLoaded(
+            data: data,
+          ),
+        ),
+      );
+      authCubit(data);
+    } catch (error) {
+      emit(
+        state.copyWith(
+          status: FormzStatus.submissionFailure,
+          signUpState: state.signUpState.toFailure(
+            error: error,
+          ),
+        ),
+      );
     }
   }
 }

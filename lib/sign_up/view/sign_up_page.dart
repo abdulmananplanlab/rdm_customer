@@ -7,12 +7,17 @@ class SignUpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => SignUpCubit(
-        signUpRepository: SignUpRepositoryImp(
-          httpClient: context.read<HttpClient>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => SignUpCubit(
+            authCubit: context.read<AuthCubit>().signUpData,
+            signUpRepository: SignUpRepositoryImp(
+              httpClient: context.read<HttpClient>(),
+            ),
+          ),
         ),
-      ),
+      ],
       child: const SignUpView(),
     );
   }

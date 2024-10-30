@@ -1,5 +1,6 @@
 import 'package:common/common.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
@@ -26,6 +27,8 @@ class CustomTextFormField extends StatelessWidget {
     this.borderSide,
     this.focusedBorder,
     this.hintTextStyle,
+    this.textInputAction,
+    this.inputFormatters,
   });
 
   final TextEditingController? controller;
@@ -50,6 +53,8 @@ class CustomTextFormField extends StatelessWidget {
   final BorderSide? borderSide;
   final InputBorder? focusedBorder;
   final TextStyle? hintTextStyle;
+  final TextInputAction? textInputAction;
+  final List<TextInputFormatter>? inputFormatters;
 
   bool get _showErrorText => hasError && (errorText != null);
 
@@ -69,6 +74,8 @@ class CustomTextFormField extends StatelessWidget {
           const SizedBox(height: 12.0),
         ],
         TextFormField(
+          textInputAction: textInputAction,
+          inputFormatters: inputFormatters,
           controller: controller,
           style: context.sixteen400,
           keyboardType: keyboardType,

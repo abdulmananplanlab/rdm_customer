@@ -125,7 +125,9 @@ class ContinueWithGoogleButton extends StatelessWidget {
         if (state.loginDataState.isLoaded) {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute<AccountVerificationPage>(
-              builder: (_) => const AccountVerificationPage(),
+              builder: (_) => const AccountVerificationPage(
+                isForgotPassword: true,
+              ),
             ),
           );
         }
@@ -135,7 +137,7 @@ class ContinueWithGoogleButton extends StatelessWidget {
       },
       builder: (context, state) {
         return CustomOutlinedButton(
-          onPressed: context.read<LoginCubit>().loginWithGoogle,
+          // onPressed: context.read<LoginCubit>().loginWithGoogle,
           loading: state.loginDataState.isLoading,
           borderRadius: 4.0,
           width: double.infinity,

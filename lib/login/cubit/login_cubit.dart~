@@ -8,6 +8,7 @@ import 'package:formz/formz.dart';
 import 'package:rdm_builder_customer/login/repository/model/login_model.dart';
 import 'package:rdm_builder_customer/login/repository/repository.dart';
 
+
 part 'login_state.dart';
 
 typedef LoginDataFunction = void Function(LoginModel);

@@ -23,3 +23,25 @@ class AppView extends StatelessWidget {
     );
   }
 }
+
+class AuthProvider extends SingleChildStatelessWidget {
+  const AuthProvider({super.key});
+
+  @override
+  Widget buildWithChild(BuildContext context, Widget? child) {
+    return BlocProvider(
+      create: (context) => AuthCubit(
+        twoFactorLoginRepository: TwoFactorLoginRepositoryImp(
+          httpClient: context.read<HttpClient>(),
+        ),
+        twoFactorForgotRepository: TwoFactorForgotRepositoryImp(
+          httpClient: context.read<HttpClient>(),
+        ),
+        twoFactorSignRepository: TwoFactorSignRepositoryImp(
+          httpClient: context.read<HttpClient>(),
+        ),
+      ),
+      child: child,
+    );
+  }
+}

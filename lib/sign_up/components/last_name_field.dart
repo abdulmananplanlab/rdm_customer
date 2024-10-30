@@ -12,6 +12,8 @@ class LastNameField extends StatelessWidget {
       buildWhen: (previous, current) => previous.lastName != current.lastName,
       builder: (context, state) {
         return TextWithTextFieldWidget(
+          hasError: state.email.invalid,
+          keyboardType: TextInputType.name,
           onChanged: context.read<SignUpCubit>().lastName,
           text: 'Last Name',
           hintText: 'ex. Fox',

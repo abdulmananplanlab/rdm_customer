@@ -4,6 +4,7 @@ class SignUpView extends StatelessWidget {
   const SignUpView({super.key});
 
   @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.white,
@@ -44,6 +45,7 @@ class SignUpView extends StatelessWidget {
                           context,
                           MaterialPageRoute<void>(
                             builder: (context) => CustomPinPut(
+                              // enable: true,
                               isSupport: true,
                               title: 'Enter Code',
                               isEmail: true,
@@ -59,18 +61,21 @@ class SignUpView extends StatelessWidget {
                                 Future.delayed(
                                   const Duration(seconds: 4),
                                   () {
+                                    if (!context.mounted) return;
+
                                     Navigator.pop(context);
 
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute<TwoFaAuthentication>(
-                                        builder: (context) =>
-                                            const TwoFaAuthentication(
-                                          text: 'Secure My Account',
-                                          isSupport: true,
-                                        ),
-                                      ),
-                                    );
+                                    // Navigator.push(
+                                    //   context,
+                                    //   MaterialPageRoute<
+                                    //       TwoFaAuthenticationPage>(
+                                    //     builder: (context) =>
+                                    //         const TwoFaAuthenticationPage(
+                                    //       text: 'Secure My Account',
+                                    //       isSupport: true,
+                                    //     ),
+                                    //   ),
+                                    // );
                                   },
                                 );
                               },
@@ -93,6 +98,7 @@ class SignUpView extends StatelessWidget {
                           context,
                           MaterialPageRoute<void>(
                             builder: (context) => CustomPinPut(
+                              // enable: true,
                               isSupport: true,
                               title: 'Enter Code',
                               isEmail: true,
@@ -108,18 +114,21 @@ class SignUpView extends StatelessWidget {
                                 Future.delayed(
                                   const Duration(seconds: 4),
                                   () {
+                                    if (!context.mounted) return;
+
                                     Navigator.pop(context);
 
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute<TwoFaAuthentication>(
-                                        builder: (context) =>
-                                            const TwoFaAuthentication(
-                                          text: 'Secure My Account',
-                                          isSupport: true,
-                                        ),
-                                      ),
-                                    );
+                                    // Navigator.push(
+                                    //   context,
+                                    //   MaterialPageRoute<
+                                    //       TwoFaAuthenticationPage>(
+                                    //     builder: (context) =>
+                                    //         const TwoFaAuthenticationPage(
+                                    //       text: 'Secure My Account',
+                                    //       isSupport: true,
+                                    //     ),
+                                    //   ),
+                                    // );
                                   },
                                 );
                               },
@@ -143,6 +152,7 @@ class SignUpView extends StatelessWidget {
                             context,
                             MaterialPageRoute<SignUpPage>(
                               builder: (context) => CustomPinPut(
+                                // enable: true,
                                 isSupport: true,
                                 title: 'Enter Code',
                                 isEmail: true,
@@ -159,18 +169,21 @@ class SignUpView extends StatelessWidget {
                                   Future.delayed(
                                     const Duration(seconds: 4),
                                     () {
+                                      if (!context.mounted) return;
+
                                       Navigator.pop(context);
 
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute<TwoFaAuthentication>(
-                                          builder: (context) =>
-                                              const TwoFaAuthentication(
-                                            text: 'Secure My Account',
-                                            isSupport: true,
-                                          ),
-                                        ),
-                                      );
+                                      // Navigator.push(
+                                      //   context,
+                                      //   MaterialPageRoute<
+                                      //       TwoFaAuthenticationPage>(
+                                      //     builder: (context) =>
+                                      //         const TwoFaAuthenticationPage(
+                                      //       text: 'Secure My Account',
+                                      //       isSupport: true,
+                                      //     ),
+                                      //   ),
+                                      // );
                                     },
                                   );
                                 },

@@ -15,6 +15,8 @@ class TextWithTextFieldWidget extends StatelessWidget {
     this.onTap,
     this.maxLines = 1,
     this.hintStyle,
+    this.hasError = false,
+    this.keyboardType,
   });
   final String? text;
   final String hintText;
@@ -27,6 +29,8 @@ class TextWithTextFieldWidget extends StatelessWidget {
   final void Function(String)? onChanged;
   final VoidCallback? onTap;
   final TextStyle? hintStyle;
+  final bool hasError;
+  final TextInputType? keyboardType;
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +57,8 @@ class TextWithTextFieldWidget extends StatelessWidget {
           ),
         const SizedBox(height: 8),
         CustomTextFormField(
+          hasError: hasError,
+          keyboardType: keyboardType,
           onTap: onTap,
           onChanged: onChanged,
           suffixIcon: suffixIcon,

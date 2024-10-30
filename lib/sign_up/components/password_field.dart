@@ -18,8 +18,10 @@ class PasswordField extends StatelessWidget {
           previous.isVisible != current.isVisible,
       builder: (context, state) {
         return CustomTextFormField(
+          textInputAction: TextInputAction.done,
           onChanged: context.read<SignUpCubit>().password,
           obscureText: !state.isVisible,
+          hasError: state.password.invalid,
           hintText: '************',
           suffixIcon: InkWell(
             onTap: () {

@@ -13,6 +13,8 @@ class EmailTextField extends StatelessWidget {
     return BlocBuilder<LoginCubit, LoginState>(
       builder: (context, state) {
         return TextWithTextFieldWidget(
+          hasError: state.email.invalid,
+          keyboardType: TextInputType.emailAddress,
           onChanged: context.read<LoginCubit>().email,
           text: 'Email Address',
           hintText: 'ex. robertfox@email.com',

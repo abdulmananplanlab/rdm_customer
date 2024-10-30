@@ -14,6 +14,8 @@ class EmailField extends StatelessWidget {
       buildWhen: (previous, current) => previous.email != current.email,
       builder: (context, state) {
         return TextWithTextFieldWidget(
+          hasError: state.email.invalid,
+          keyboardType: TextInputType.emailAddress,
           onChanged: context.read<SignUpCubit>().email,
           text: 'Email Address',
           hintText: 'ex. robertfox@email.com',

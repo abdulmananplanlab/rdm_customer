@@ -39,7 +39,7 @@ class AppCoreProviders extends StatelessWidget {
           create: (context) => AppRouter(
             appBloc: context.read<AppBloc>(),
           ),
-          child: const AppView(),
+          child: const AppFeatureProviders(),
         ),
       ),
     );
@@ -56,13 +56,9 @@ class AppFeatureProviders extends StatelessWidget {
     return MultiBlocProvider(
       providers: const [
         //IntegrationProvider(),
+        AuthProvider(),
       ],
-      child: MultiBlocProvider(
-        providers: const [
-          //AssistantProvider(),
-        ],
-        child: const AppView(),
-      ),
+      child: const AppView(),
     );
   }
 }

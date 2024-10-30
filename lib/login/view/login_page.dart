@@ -9,6 +9,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<LoginCubit>(
       create: (context) => LoginCubit(
+        loginDataSendToAuthCubit: context.read<AuthCubit>().loginData,
         loginRepository: LoginRepositoryImp(
           httpClient: context.read<HttpClient>(),
         ),
