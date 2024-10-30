@@ -7,12 +7,13 @@ class TwoFaActivationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return
-        // BlocProvider<TwoFactorActivationCubit>(
-        // create: (context) => TwoFactorActivationCubit(),
-        // child:
-
-        const TwoFaActivationView();
-    // );
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<TwoFactorActivationCubit>(
+          create: (context) => TwoFactorActivationCubit(),
+        ),
+      ],
+      child: const TwoFaActivationView(),
+    );
   }
 }

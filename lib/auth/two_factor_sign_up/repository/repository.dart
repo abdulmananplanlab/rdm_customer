@@ -1,9 +1,10 @@
+import 'package:common/auth/api/entity/entity.dart';
 import 'package:rdm_builder_customer/auth/two_factor_sign_up/model/authenticator_model.dart';
-import 'package:rdm_builder_customer/auth/two_factor_sign_up/model/magic_link_model.dart';
 
 abstract class TwoFactorSignRepository {
-  Future<MagicLinkModel> verificationCodeGenerate({
+  Future<void> verificationCodeGenerate({
     required String email,
+    required String token,
   });
   Future<String> phoneNumberOtpSignUp({
     required String otp,
@@ -17,4 +18,9 @@ abstract class TwoFactorSignRepository {
   Future<AuthenticatorModel> authenticatorQrImageSignUp({String? token});
   Future<AuthenticatorModel> authenticatorSecretKeySignUp({String? token});
   Future<String> authenticatorOtpSignUp({required String code});
+
+  Future<UserEntity> getUser({
+    required String token,
+    required String id,
+  });
 }

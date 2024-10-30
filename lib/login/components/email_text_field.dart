@@ -11,6 +11,7 @@ class EmailTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LoginCubit, LoginState>(
+      buildWhen: (previous, current) => previous.email != current.email,
       builder: (context, state) {
         return TextWithTextFieldWidget(
           hasError: state.email.invalid,

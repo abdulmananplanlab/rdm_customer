@@ -45,7 +45,7 @@ class AuthApiImpl extends AuthApi {
     ).then(
       (result) => $mapIt(
         result['user-profile'],
-        (it) => UserEntity.fromJson(it as JsonObject),
+        (it) => UserEntity.fromJson(it as JsonObject,''),
       )!,
     );
   }

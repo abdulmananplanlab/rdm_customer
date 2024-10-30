@@ -39,160 +39,14 @@ class SignUpView extends StatelessWidget {
                     const SizedBox(height: 16),
                     const OrWidget(),
                     const SizedBox(height: 16),
-                    CustomOutlinedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute<void>(
-                            builder: (context) => CustomPinPut(
-                              // enable: true,
-                              isSupport: true,
-                              title: 'Enter Code',
-                              isEmail: true,
-                              onPressed: () {
-                                showDialog<CustomAlertDialog>(
-                                  context: context,
-                                  builder: (context) => const CustomAlertDialog(
-                                    title: 'Email Verification Complete!',
-                                    subTitle:
-                                        'Just a few more steps left to complete your account signup.',
-                                  ),
-                                );
-                                Future.delayed(
-                                  const Duration(seconds: 4),
-                                  () {
-                                    if (!context.mounted) return;
-
-                                    Navigator.pop(context);
-
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute<
-                                    //       TwoFaAuthenticationPage>(
-                                    //     builder: (context) =>
-                                    //         const TwoFaAuthenticationPage(
-                                    //       text: 'Secure My Account',
-                                    //       isSupport: true,
-                                    //     ),
-                                    //   ),
-                                    // );
-                                  },
-                                );
-                              },
-                              appBarTitle: 'Email Verification',
-                              subTitle: 'We have sent a verification code to',
-                            ),
-                          ),
-                        );
-                      },
-                      borderRadius: 4.0,
-                      width: double.infinity,
-                      leading:
-                          const AssetIcon.multicolor(AssetIcons.google_icon),
-                      text: 'Continue with Google',
-                    ),
+                    const _SocialSignUpListner(),
+                    _ContinueWithGoogle(),
                     const SizedBox(height: 16),
-                    CustomOutlinedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute<void>(
-                            builder: (context) => CustomPinPut(
-                              // enable: true,
-                              isSupport: true,
-                              title: 'Enter Code',
-                              isEmail: true,
-                              onPressed: () {
-                                showDialog<CustomAlertDialog>(
-                                  context: context,
-                                  builder: (context) => const CustomAlertDialog(
-                                    title: 'Email Verification Complete!',
-                                    subTitle:
-                                        'Just a few more steps left to complete your account signup.',
-                                  ),
-                                );
-                                Future.delayed(
-                                  const Duration(seconds: 4),
-                                  () {
-                                    if (!context.mounted) return;
-
-                                    Navigator.pop(context);
-
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute<
-                                    //       TwoFaAuthenticationPage>(
-                                    //     builder: (context) =>
-                                    //         const TwoFaAuthenticationPage(
-                                    //       text: 'Secure My Account',
-                                    //       isSupport: true,
-                                    //     ),
-                                    //   ),
-                                    // );
-                                  },
-                                );
-                              },
-                              appBarTitle: 'Email Verification',
-                              subTitle: 'We have sent a verification code to',
-                            ),
-                          ),
-                        );
-                      },
-                      borderRadius: 4.0,
-                      width: double.infinity,
-                      leading:
-                          const AssetIcon.multicolor(AssetIcons.facebook_icon),
-                      text: 'Continue with Facebook',
-                    ),
+                    _ContinueWithFacebook(),
                     const SizedBox(height: 16),
                     if (Platform.isIOS)
                       CustomOutlinedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute<SignUpPage>(
-                              builder: (context) => CustomPinPut(
-                                // enable: true,
-                                isSupport: true,
-                                title: 'Enter Code',
-                                isEmail: true,
-                                onPressed: () {
-                                  showDialog<CustomAlertDialog>(
-                                    context: context,
-                                    builder: (context) =>
-                                        const CustomAlertDialog(
-                                      title: 'Email Verification Complete!',
-                                      subTitle:
-                                          'Just a few more steps left to complete your account signup.',
-                                    ),
-                                  );
-                                  Future.delayed(
-                                    const Duration(seconds: 4),
-                                    () {
-                                      if (!context.mounted) return;
-
-                                      Navigator.pop(context);
-
-                                      // Navigator.push(
-                                      //   context,
-                                      //   MaterialPageRoute<
-                                      //       TwoFaAuthenticationPage>(
-                                      //     builder: (context) =>
-                                      //         const TwoFaAuthenticationPage(
-                                      //       text: 'Secure My Account',
-                                      //       isSupport: true,
-                                      //     ),
-                                      //   ),
-                                      // );
-                                    },
-                                  );
-                                },
-                                appBarTitle: 'Email Verification',
-                                subTitle: 'We have sent a verification code to',
-                              ),
-                            ),
-                          );
-                        },
+                        onPressed: () {},
                         borderRadius: 4.0,
                         width: double.infinity,
                         leading:
@@ -254,6 +108,78 @@ class SignUpView extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _SocialSignUpListner extends StatelessWidget {
+  const _SocialSignUpListner();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocListener<SignUpCubit, SignUpState>(
+      listenWhen: (previous, current) =>
+          previous.socialSignUpDataState != current.socialSignUpDataState,
+      listener: (context, state) {
+        if (state.socialSignUpDataState.isLoaded) {
+          Navigator.push(
+            context,
+            MaterialPageRoute<TwoFaAuthenticationPage>(
+              builder: (context) => const TwoFaAuthenticationPage(
+                isSupport: true,
+              ),
+            ),
+          );
+        }
+        if (state.socialSignUpDataState.isFailure) {
+          context.errorSnackbar(state.socialSignUpDataState.errorMessage);
+        }
+      },
+      child: SizedBox.shrink(),
+    );
+  }
+}
+
+class _ContinueWithGoogle extends StatelessWidget {
+  const _ContinueWithGoogle();
+
+  @override
+  Widget build(BuildContext context) {
+    final socialSignUpDataState = context.select(
+      (SignUpCubit cubit) => cubit.state.socialSignUpDataState,
+    );
+    return CustomOutlinedButton(
+      onPressed: context.read<SignUpCubit>().signUpWithGoogle,
+      loading: socialSignUpDataState.key == 'google' &&
+          socialSignUpDataState.isLoading,
+      enabled:
+          socialSignUpDataState.isInitial || socialSignUpDataState.isFailure,
+      borderRadius: 4.0,
+      width: double.infinity,
+      leading: const AssetIcon.multicolor(AssetIcons.google_icon),
+      text: 'Continue with Google',
+    );
+  }
+}
+
+class _ContinueWithFacebook extends StatelessWidget {
+  const _ContinueWithFacebook();
+
+  @override
+  Widget build(BuildContext context) {
+    final socialSignUpDataState = context.select(
+      (SignUpCubit cubit) => cubit.state.socialSignUpDataState,
+    );
+    return CustomOutlinedButton(
+      onPressed: context.read<SignUpCubit>().signUpWithFacebook,
+      loading: socialSignUpDataState.key == 'facebook' &&
+          socialSignUpDataState.isLoading,
+      enabled:
+          socialSignUpDataState.isInitial || socialSignUpDataState.isFailure,
+      borderRadius: 4.0,
+      width: double.infinity,
+      leading: const AssetIcon.multicolor(AssetIcons.facebook_icon),
+      text: 'Continue with Facebook',
     );
   }
 }

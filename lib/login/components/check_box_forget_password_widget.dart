@@ -1,7 +1,7 @@
 import 'package:common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rdm_builder_customer/forget_password/verify_email/verify_email.dart';
+import 'package:rdm_builder_customer/forget_password/verify_email/view/view.dart';
 import 'package:rdm_builder_customer/login/cubit/login_cubit.dart';
 import 'package:rdm_builder_customer/widgets/custom_check_box.dart';
 

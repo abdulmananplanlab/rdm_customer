@@ -23,19 +23,11 @@ class AuthRepositoryImpl extends AuthRepository {
     // );
     // final user = await api.getUser(token: auth.accessToken ?? '');
     //await Future<void>.delayed(const Duration(seconds: 2));
-    final user = UserEntity(
-      id: '1',
-      email: email,
-      name: 'John Doe',
-      jwt: 'jwt',
-      scope: 'user',
-      password: 'password',
-    );
+    final user = UserEntity();
     updateUser(
       User.fromEntity(
         user,
-        token: user.jwt ?? '',
-        password: password,
+        //token: user.token,
       ),
     );
   }

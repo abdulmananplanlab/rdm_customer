@@ -5,11 +5,17 @@ typedef PhoneNumberLoginDataSate = DataState<void>;
 typedef AuthenticatorQrImageSignUpDataSate = DataState<AuthenticatorModel>;
 typedef AuthenticatorQrSecretKeySignUpDataSate = DataState<AuthenticatorModel>;
 typedef AuthenticatorLoginDataSate = DataState<AuthenticatorLoginModel>;
-typedef SignUpDataSate = DataState<SignUpModel>;
-typedef LoginDataSate = DataState<LoginModel>;
+typedef SignUpDataSate = DataState<UserEntity>;
+typedef LoginDataSate = DataState<UserEntity>;
 typedef PhoneNumberOtpSignUpVerifiedDataState = DataState<void>;
 typedef PhoneNumberOtpLoginVerifiedDataState = DataState<void>;
 typedef MagicLinkSendDataState = DataState<void>;
+typedef MagicLinkSendLoginDataState = DataState<void>;
+typedef GetUserDataState = DataState<UserEntity>;
+typedef GetUserAuthenicatorDataState = DataState<UserEntity>;
+typedef GetUserLoginDataState = DataState<UserEntity>;
+typedef GetUserAgreementDataState = DataState<UserEntity>;
+typedef GetUserDocumentDataState = DataState<UserEntity>;
 
 class AuthState extends Equatable {
   const AuthState({
@@ -36,6 +42,12 @@ class AuthState extends Equatable {
     this.isLoading = false,
     this.otpLoginVerifiedDataState = const DataState(),
     this.magicLinkSendDataState = const DataState(),
+    this.getUserDataState = const DataState(),
+    this.getUserAuthenticatorDataState = const DataState(),
+    this.magicLinkSendLoginDataState = const DataState(),
+    this.getUserLoginDataState = const DataState(),
+    this.getUserAgreementDataState = const DataState(),
+    this.getUserDocumentDataState = const DataState(),
   });
 
   final General otpPhoneNumberForgot;
@@ -62,6 +74,12 @@ class AuthState extends Equatable {
   final PhoneNumberOtpSignUpVerifiedDataState otpSignUpVerifiedDataState;
   final PhoneNumberOtpLoginVerifiedDataState otpLoginVerifiedDataState;
   final MagicLinkSendDataState magicLinkSendDataState;
+  final GetUserDataState getUserDataState;
+  final GetUserAuthenicatorDataState getUserAuthenticatorDataState;
+  final MagicLinkSendLoginDataState magicLinkSendLoginDataState;
+  final GetUserLoginDataState getUserLoginDataState;
+  final GetUserAgreementDataState getUserAgreementDataState;
+  final GetUserDocumentDataState getUserDocumentDataState;
 
   AuthState copyWith({
     Email? email,
@@ -94,6 +112,12 @@ class AuthState extends Equatable {
     bool? isLoading,
     PhoneNumberOtpLoginVerifiedDataState? otpLoginVerifiedDataState,
     MagicLinkSendDataState? magicLinkSendDataState,
+    GetUserDataState? getUserDataState,
+    GetUserAuthenicatorDataState? getUserAuthenticatorDataState,
+    MagicLinkSendLoginDataState? magicLinkSendLoginDataState,
+    GetUserLoginDataState? getUserLoginDataState,
+    GetUserAgreementDataState? getUserAgreementDataState,
+    GetUserDocumentDataState? getUserDocumentDataState,
   }) {
     return AuthState(
       otpPhoneNumberForgot: otpPhoneNumberForgot ?? this.otpPhoneNumberForgot,
@@ -132,6 +156,17 @@ class AuthState extends Equatable {
           otpLoginVerifiedDataState ?? this.otpLoginVerifiedDataState,
       magicLinkSendDataState:
           magicLinkSendDataState ?? this.magicLinkSendDataState,
+      getUserDataState: getUserDataState ?? this.getUserDataState,
+      getUserAuthenticatorDataState:
+          getUserAuthenticatorDataState ?? this.getUserAuthenticatorDataState,
+      magicLinkSendLoginDataState:
+          magicLinkSendLoginDataState ?? this.magicLinkSendLoginDataState,
+      getUserLoginDataState:
+          getUserLoginDataState ?? this.getUserLoginDataState,
+      getUserAgreementDataState:
+          getUserAgreementDataState ?? this.getUserAgreementDataState,
+      getUserDocumentDataState:
+          getUserDocumentDataState ?? this.getUserDocumentDataState,
     );
   }
 
@@ -160,6 +195,12 @@ class AuthState extends Equatable {
         isLoading,
         otpLoginVerifiedDataState,
         magicLinkSendDataState,
+        getUserDataState,
+        getUserAuthenticatorDataState,
+        magicLinkSendLoginDataState,
+        getUserLoginDataState,
+        getUserAgreementDataState,
+        getUserDocumentDataState,
       ];
 
   FormzStatus validWith(

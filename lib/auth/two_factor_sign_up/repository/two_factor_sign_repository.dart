@@ -1,7 +1,6 @@
 import 'package:common/common.dart';
-import 'package:rdm_builder_customer/app/slack_api_end_points/slack_api_end_points.dart';
+import 'package:rdm_builder_customer/api_end_points/api_end_points.dart';
 import 'package:rdm_builder_customer/auth/two_factor_sign_up/model/authenticator_model.dart';
-import 'package:rdm_builder_customer/auth/two_factor_sign_up/model/magic_link_model.dart';
 import 'package:rdm_builder_customer/auth/two_factor_sign_up/repository/repository.dart';
 
 class TwoFactorSignRepositoryImp extends TwoFactorSignRepository {
@@ -19,10 +18,10 @@ class TwoFactorSignRepositoryImp extends TwoFactorSignRepository {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
       },
-      path: SlackApiEndpoints.phoneNumberOtp,
+      path: ApiEndpoints.phoneNumberOtp,
       body: {
         'phone_no': otp,
-        'user_type': 'builder',
+        'user_type': 'customer',
         'type': 'sign-up',
       },
     );
@@ -37,20 +36,20 @@ class TwoFactorSignRepositoryImp extends TwoFactorSignRepository {
   }
 
   @override
-  Future<MagicLinkModel> verificationCodeGenerate({
+  Future<void> verificationCodeGenerate({
     required String email,
+    required String token,
   }) {
     return httpClient.post<JsonObject>(
-      path: SlackApiEndpoints.verificationCodeGenerate,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      path: ApiEndpoints.generateMagicLink,
       body: {
-        'type': 'builder',
+        'type': 'customer',
         'email': email,
       },
-    ).then(
-      (json) => $mapIt(
-        json,
-        (it) => MagicLinkModel.fromJson(it as JsonObject),
-      )!,
     );
   }
 
@@ -64,9 +63,9 @@ class TwoFactorSignRepositoryImp extends TwoFactorSignRepository {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer $token',
           },
-          path: SlackApiEndpoints.authenticatorQrImageGenerate,
+          path: ApiEndpoints.authenticatorQrImageGenerate,
           body: {
-            'user_type': 'builder',
+            'user_type': 'customer',
           },
         )
         .then(
@@ -88,7 +87,7 @@ class TwoFactorSignRepositoryImp extends TwoFactorSignRepository {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
       },
-      path: SlackApiEndpoints.phoneNumberOtpVerified,
+      path: ApiEndpoints.phoneNumberOtpVerified,
       body: {
         'phone_no': phoneNumber,
         'otp': otp,
@@ -104,9 +103,9 @@ class TwoFactorSignRepositoryImp extends TwoFactorSignRepository {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer $token',
           },
-          path: SlackApiEndpoints.authenticatorQrSecretGenerate,
+          path: ApiEndpoints.authenticatorQrSecretGenerate,
           body: {
-            'user_type': 'builder',
+            'user_type': 'customer',
           },
         )
         .then(
@@ -118,5 +117,27 @@ class TwoFactorSignRepositoryImp extends TwoFactorSignRepository {
             ),
           )!,
         );
+  }
+
+  @override
+  Future<UserEntity> getUser({
+    required String token,
+    required String id,
+  }) {
+    return httpClient.get<JsonObject>(
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      path: '${ApiEndpoints.getCustomerUser}/$id',
+    ).then(
+      (json) => $mapIt(
+        json,
+        (it) => UserEntity.fromJson(
+          it['data'] as JsonObject,
+          token,
+        ),
+      )!,
+    );
   }
 }

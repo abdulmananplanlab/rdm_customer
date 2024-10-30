@@ -1,33 +1,17 @@
-import 'dart:developer';
-
 import 'package:common/common.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rdm_builder_customer/auth_cubit/auth_cubit.dart';
+import 'package:rdm_builder_customer/two_factor_activition/cubits/two_factor_activition_cubit.dart';
 
-class PhoneNumberAuthentication extends StatefulWidget {
+class PhoneNumberAuthentication extends StatelessWidget {
   const PhoneNumberAuthentication({
     super.key,
   });
 
-  @override
-  State<PhoneNumberAuthentication> createState() =>
-      _PhoneNumberAuthenticationState();
-}
-
-class _PhoneNumberAuthenticationState extends State<PhoneNumberAuthentication> {
-  Country selectedCountry = Country(
-    e164Sc: 1,
-    phoneCode: '1',
-    countryCode: 'US',
-    name: 'United States',
-    geographic: true,
-    level: 2,
-    example: '',
-    displayName: '',
-    displayNameNoCountryCode: '',
-    e164Key: '',
-  );
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -57,25 +41,37 @@ class _PhoneNumberAuthenticationState extends State<PhoneNumberAuthentication> {
           child: Row(
             children: [
               const SizedBox(width: 8),
-              CircleAvatar(
-                radius: 14,
-                backgroundColor: Colors.white,
-                child: ClipOval(
-                  child: FittedBox(
-                    fit: BoxFit.cover,
-                    child: Text(
-                      selectedCountry.flagEmoji,
-                      style: const TextStyle(
-                        fontSize: 50,
-                      ), // Adjust font size if needed
+              BlocBuilder<TwoFactorActivationCubit, TwoFactorActivationState>(
+                buildWhen: (previous, current) =>
+                    previous.selectedCountry != current.selectedCountry,
+                builder: (context, state) {
+                  return CircleAvatar(
+                    radius: 14,
+                    backgroundColor: Colors.transparent,
+                    child: ClipOval(
+                      child: FittedBox(
+                        fit: BoxFit.cover,
+                        child: Text(
+                          state.selectedCountry.flagEmoji,
+                          style: const TextStyle(
+                            fontSize: 50,
+                          ), // Adjust font size if needed
+                        ),
+                      ),
                     ),
-                  ),
-                ),
+                  );
+                },
               ),
               const SizedBox(width: 8),
-              Text(
-                '+${selectedCountry.phoneCode}',
-                style: context.sixteen400,
+              BlocBuilder<TwoFactorActivationCubit, TwoFactorActivationState>(
+                buildWhen: (previous, current) =>
+                    previous.selectedCountry != current.selectedCountry,
+                builder: (context, state) {
+                  return Text(
+                    '+${state.selectedCountry.phoneCode}',
+                    style: context.sixteen400,
+                  );
+                },
               ),
               const SizedBox(width: 4),
               IconButton(
@@ -86,19 +82,13 @@ class _PhoneNumberAuthenticationState extends State<PhoneNumberAuthentication> {
                 padding: EdgeInsets.zero,
                 iconSize: 12,
                 onPressed: () {
+                  final phoneNumberCubit =
+                      context.read<TwoFactorActivationCubit>();
+
                   showCountryPicker(
                     context: context,
                     showPhoneCode: true,
-                    // optional. Shows phone code before the country name.
-                    onSelect: (Country country) {
-                      setState(() {
-                        selectedCountry = country;
-                      });
-                      // context
-                      //     .read<TwoFactorActivationCubit>()
-                      //     .selectCountry(country);
-                      log('Select country: ${country.displayName}');
-                    },
+                    onSelect: phoneNumberCubit.selectCountry,
                   );
                 },
                 icon: const Icon(
@@ -108,18 +98,29 @@ class _PhoneNumberAuthenticationState extends State<PhoneNumberAuthentication> {
             ],
           ),
         ),
-        const Expanded(
-          child: CustomTextFormField(
-            keyboardType: TextInputType.number,
-            borderRadius: BorderRadius.only(
-              topRight: Radius.circular(8),
-              bottomRight: Radius.circular(8),
-            ),
-            contentPadding: EdgeInsets.symmetric(
-              vertical: 12,
-              horizontal: 16,
-            ),
-            hintText: 'ex. 234 567 890',
+        Expanded(
+          child: BlocBuilder<AuthCubit, AuthState>(
+            buildWhen: (previous, current) =>
+                previous.otpPhoneNumberSignUp != current.otpPhoneNumberSignUp,
+            builder: (context, state) {
+              return CustomTextFormField(
+                hasError: state.otpPhoneNumberSignUp.invalid,
+                onChanged: context.read<AuthCubit>().phoneNumber,
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(20),
+                ],
+                keyboardType: TextInputType.number,
+                borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(8),
+                  bottomRight: Radius.circular(8),
+                ),
+                contentPadding: const EdgeInsets.symmetric(
+                  vertical: 12,
+                  horizontal: 16,
+                ),
+                hintText: 'ex. 234 567 890',
+              );
+            },
           ),
         ),
       ],

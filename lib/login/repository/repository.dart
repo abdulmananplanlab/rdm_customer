@@ -1,8 +1,9 @@
-import 'package:rdm_builder_customer/login/repository/model/login_model.dart';
+import 'package:common/common.dart';
 
 abstract class LoginRepository {
-  Future<LoginModel> loginWithEmailPassword({
+  Future<UserEntity> loginWithEmailPassword({
     required String email,
     required String password,
   });
+  Future<UserEntity> googleLogin(String email);
 }

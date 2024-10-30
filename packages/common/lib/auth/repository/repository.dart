@@ -38,6 +38,14 @@ abstract class AuthRepository {
     );
   }
 
+  void updateBuilderUser(User user) {
+    _currentUser = user;
+    _storage.write(
+      userCacheKey,
+      value: jsonEncode(user.toJson()),
+    );
+  }
+
   void updateOnboarding(bool onboarded) {
     _storage.write(
       onboardingKey,
@@ -78,7 +86,7 @@ abstract class AuthRepository {
   bool get isAuthenticated => currentUser.isAuthenticated;
 
   /// JWT token of current user
-  String get authToken => currentUser.jwt;
+  String get authToken => currentUser.token;
 
   /// Headers with [JWT] token
   Map<String, String>? get headersWithJWT => authToken.isNotEmpty
