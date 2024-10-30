@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
@@ -9,8 +10,6 @@ import 'package:rdm_builder_customer/auth/two_factor_login/model/authenticator_m
 import 'package:rdm_builder_customer/auth/two_factor_login/repository/repository.dart';
 import 'package:rdm_builder_customer/auth/two_factor_sign_up/model/authenticator_model.dart';
 import 'package:rdm_builder_customer/auth/two_factor_sign_up/repository/repository.dart';
-import 'package:rdm_builder_customer/login/repository/model/login_model.dart';
-import 'package:rdm_builder_customer/sign_up/repository/model/sign_up_model.dart';
 
 part 'auth_state.dart';
 
@@ -19,10 +18,15 @@ class AuthCubit extends Cubit<AuthState> {
     required this.twoFactorLoginRepository,
     required this.twoFactorForgotRepository,
     required this.twoFactorSignRepository,
+    this.token,
+    this.id,
   }) : super(const AuthState());
   final TwoFactorLoginRepository twoFactorLoginRepository;
   final TwoFactorForgotRepository twoFactorForgotRepository;
   final TwoFactorSignRepository twoFactorSignRepository;
+  final String? token;
+  final String? id;
+  Timer? timer;
 
   // show Loading
   void showLoading() {
@@ -78,6 +82,7 @@ class AuthCubit extends Cubit<AuthState> {
     );
     try {
       await twoFactorSignRepository.verificationCodeGenerate(
+        token: state.signUpDataSate.data?.token ?? token ?? '',
         email: email,
       );
       emit(
@@ -90,6 +95,34 @@ class AuthCubit extends Cubit<AuthState> {
         state.copyWith(
           magicLinkSendDataState:
               state.magicLinkSendDataState.toFailure(error: e),
+        ),
+      );
+    }
+  }
+
+  Future<void> magicLinkSendLogin({required String email}) async {
+    emit(
+      state.copyWith(
+        magicLinkSendLoginDataState:
+            state.magicLinkSendLoginDataState.toLoading(),
+      ),
+    );
+    try {
+      await twoFactorSignRepository.verificationCodeGenerate(
+        token: state.loginDataState.data?.token ?? token ?? '',
+        email: email,
+      );
+      emit(
+        state.copyWith(
+          magicLinkSendLoginDataState:
+              state.magicLinkSendLoginDataState.toLoaded(),
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          magicLinkSendLoginDataState:
+              state.magicLinkSendLoginDataState.toFailure(error: e),
         ),
       );
     }
@@ -171,7 +204,10 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       await twoFactorSignRepository.phoneNumberOtpSignUp(
         otp: state.otpPhoneNumberSignUp.value,
-        token: state.signUpDataSate.data?.token ?? 'No Token',
+        token: state.signUpDataSate.data?.token ??
+            token ??
+            state.loginDataState.data?.token ??
+            'No Token',
       );
 
       emit(
@@ -203,7 +239,10 @@ class AuthCubit extends Cubit<AuthState> {
     );
     try {
       await twoFactorSignRepository.phoneNumberOtpVerified(
-        token: state.signUpDataSate.data?.token ?? 'No Token',
+        token: state.signUpDataSate.data?.token ??
+            token ??
+            state.loginDataState.data?.token ??
+            'No Token',
         phoneNumber: state.otpPhoneNumberSignUp.value,
         otp: state.otpSignUpPhoneVerified.value,
       );
@@ -212,6 +251,14 @@ class AuthCubit extends Cubit<AuthState> {
           status: FormzStatus.submissionSuccess,
           otpSignUpVerifiedDataState:
               state.otpSignUpVerifiedDataState.toLoaded(),
+        ),
+      );
+    } on BadRequestException catch (_) {
+      emit(
+        state.copyWith(
+          status: FormzStatus.submissionFailure,
+          otpSignUpVerifiedDataState:
+              state.otpSignUpVerifiedDataState.toFailure(error: 'Invalid otp'),
         ),
       );
     } catch (error) {
@@ -236,14 +283,23 @@ class AuthCubit extends Cubit<AuthState> {
     );
     try {
       await twoFactorLoginRepository.phoneNumberOtpVerifiedLogin(
-        token: state.loginDataState.data?.token ?? 'No Token',
-        phoneNumber: state.loginDataState.data?.phoneNo ?? 'No Phone Number',
+        token: state.loginDataState.data?.token ?? token ?? 'No Token',
+        phoneNumber:
+            state.loginDataState.data?.phoneNo ?? token ?? 'No Phone Number',
         otp: state.otpPhoneNumberVerifiedLogin.value,
       );
       emit(
         state.copyWith(
           status: FormzStatus.submissionSuccess,
           otpLoginVerifiedDataState: state.otpLoginVerifiedDataState.toLoaded(),
+        ),
+      );
+    } on BadRequestException catch (_) {
+      emit(
+        state.copyWith(
+          status: FormzStatus.submissionFailure,
+          otpLoginVerifiedDataState:
+              state.otpLoginVerifiedDataState.toFailure(error: 'Invalid OTP'),
         ),
       );
     } catch (error) {
@@ -258,16 +314,18 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
 // signup data store in this code
-  void signUpData(SignUpModel data) {
+  void signUpData(UserEntity data) {
     emit(
       state.copyWith(
         signUpDataSate: state.signUpDataSate.toLoaded(data: data),
       ),
     );
+    $debugLog(state.signUpDataSate.data?.createdAt);
+    $debugLog(state.signUpDataSate.data?.qrCodeSecret);
   }
 
   // login data store in this code
-  void loginData(LoginModel data) {
+  void loginData(UserEntity data) {
     emit(
       state.copyWith(
         loginDataState: state.loginDataState.toLoaded(data: data),
@@ -284,7 +342,10 @@ class AuthCubit extends Cubit<AuthState> {
     );
     try {
       final data = await twoFactorSignRepository.authenticatorQrImageSignUp(
-        token: state.signUpDataSate.data?.token,
+        token: state.signUpDataSate.data?.token ??
+            token ??
+            state.loginDataState.data?.token ??
+            'No Token',
       );
       emit(
         state.copyWith(
@@ -313,7 +374,10 @@ class AuthCubit extends Cubit<AuthState> {
     );
     try {
       final data = await twoFactorSignRepository.authenticatorSecretKeySignUp(
-        token: state.signUpDataSate.data?.token,
+        token: state.signUpDataSate.data?.token ??
+            token ??
+            state.loginDataState.data?.token ??
+            'No Token',
       );
 
       emit(
@@ -345,7 +409,7 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       final data =
           await twoFactorLoginRepository.generateQrImageForAuthenticatorLogin(
-        token: state.loginDataState.data?.token,
+        token: state.loginDataState.data?.token ?? token,
       );
       emit(
         state.copyWith(
@@ -390,15 +454,21 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       await twoFactorLoginRepository.getTwoFaAuthenticatorCodeLogin(
         tokenCode: state.token.value,
-        // secret: secret,
-        token: state.loginDataState.data?.token ?? '',
-        // email: email,
+        token: state.loginDataState.data?.token ?? token ?? 'No Token',
       );
       emit(
         state.copyWith(
           status: FormzStatus.submissionSuccess,
           authenticatorLoginDataSate:
               state.authenticatorLoginDataSate.toLoaded(),
+        ),
+      );
+    } on BadRequestException catch (_) {
+      emit(
+        state.copyWith(
+          status: FormzStatus.submissionFailure,
+          authenticatorLoginDataSate:
+              state.authenticatorLoginDataSate.toFailure(error: 'Invalid Code'),
         ),
       );
     } catch (error) {
@@ -411,6 +481,7 @@ class AuthCubit extends Cubit<AuthState> {
       );
     }
   }
+// this authenticator code for sign up
 
   Future<void> authenticatorAppCodeSignUp() async {
     try {
@@ -420,6 +491,202 @@ class AuthCubit extends Cubit<AuthState> {
     } catch (e) {
       log(e.toString());
       $debugLog(e);
+    }
+  }
+
+  void startTimer() {
+    timer = Timer.periodic(
+      Duration(seconds: 5),
+      (timer) {
+        if (state.getUserLoginDataState.data?.isEmailVerified ?? false) {
+          timer.cancel();
+        } else {
+          getUserBuilderLogin();
+        }
+      },
+    );
+  }
+
+  void cancelTimer() {
+    timer?.cancel();
+    timer = null;
+  }
+
+  @override
+  Future<void> close() {
+    cancelTimer(); // Ensure the timer is stopped when cubit is disposed
+    return super.close();
+  }
+
+// this api to get latest user
+  Future<void> getUserBuilder() async {
+    emit(
+      state.copyWith(
+        getUserDataState: state.getUserDataState.toLoading(),
+      ),
+    );
+    try {
+      final data = await twoFactorSignRepository.getUser(
+        id: state.signUpDataSate.data?.id ??
+            id ??
+            state.loginDataState.data?.id ??
+            'No id',
+        token: state.signUpDataSate.data?.token ??
+            token ??
+            state.loginDataState.data?.token ??
+            'No Token',
+      );
+
+      emit(
+        state.copyWith(
+          getUserDataState: state.getUserDataState.toLoaded(data: data),
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          getUserDataState: state.getUserDataState.toFailure(error: e),
+        ),
+      );
+    }
+  }
+
+  Future<void> getUserBuilderAgreement() async {
+    emit(
+      state.copyWith(
+        getUserAgreementDataState: state.getUserAgreementDataState.toLoading(),
+      ),
+    );
+    try {
+      final data = await twoFactorSignRepository.getUser(
+        id: state.signUpDataSate.data?.id ??
+            id ??
+            state.loginDataState.data?.id ??
+            'No id',
+        token: state.signUpDataSate.data?.token ??
+            token ??
+            state.loginDataState.data?.token ??
+            'No Token',
+      );
+
+      emit(
+        state.copyWith(
+          getUserAgreementDataState:
+              state.getUserAgreementDataState.toLoaded(data: data),
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          getUserAgreementDataState:
+              state.getUserAgreementDataState.toFailure(error: e),
+        ),
+      );
+    }
+  }
+
+  Future<void> getUserBuilderDocument() async {
+    emit(
+      state.copyWith(
+        getUserDocumentDataState: state.getUserDocumentDataState.toLoading(),
+      ),
+    );
+    try {
+      final data = await twoFactorSignRepository.getUser(
+        id: state.signUpDataSate.data?.id ??
+            id ??
+            state.loginDataState.data?.id ??
+            'No id',
+        token: state.signUpDataSate.data?.token ??
+            token ??
+            state.loginDataState.data?.token ??
+            'No Token',
+      );
+
+      emit(
+        state.copyWith(
+          getUserDocumentDataState:
+              state.getUserDocumentDataState.toLoaded(data: data),
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          getUserDocumentDataState:
+              state.getUserDocumentDataState.toFailure(error: e),
+        ),
+      );
+    }
+  }
+
+  // this api to get latest user in login button when email not verified
+  Future<void> getUserBuilderLogin() async {
+    emit(
+      state.copyWith(
+        getUserLoginDataState: state.getUserLoginDataState.toLoading(),
+      ),
+    );
+    try {
+      final data = await twoFactorSignRepository.getUser(
+        id: state.signUpDataSate.data?.id ??
+            id ??
+            state.loginDataState.data?.id ??
+            'No id',
+        token: state.signUpDataSate.data?.token ??
+            token ??
+            state.loginDataState.data?.token ??
+            'No Token',
+      );
+
+      emit(
+        state.copyWith(
+          getUserLoginDataState:
+              state.getUserLoginDataState.toLoaded(data: data),
+        ),
+      );
+      $debugLog(state.getUserLoginDataState.data?.isEmailVerified);
+    } catch (e) {
+      emit(
+        state.copyWith(
+          getUserLoginDataState:
+              state.getUserLoginDataState.toFailure(error: e),
+        ),
+      );
+    }
+  }
+
+  Future<void> getUserBuilderAuthenticator() async {
+    emit(
+      state.copyWith(
+        getUserAuthenticatorDataState:
+            state.getUserAuthenticatorDataState.toLoading(),
+      ),
+    );
+    try {
+      final data = await twoFactorSignRepository.getUser(
+        id: state.signUpDataSate.data?.id ??
+            id ??
+            state.loginDataState.data?.id ??
+            'No id',
+        token: state.signUpDataSate.data?.token ??
+            token ??
+            state.loginDataState.data?.token ??
+            'No Token',
+      );
+
+      emit(
+        state.copyWith(
+          getUserAuthenticatorDataState:
+              state.getUserAuthenticatorDataState.toLoaded(data: data),
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          getUserAuthenticatorDataState:
+              state.getUserAuthenticatorDataState.toFailure(error: e),
+        ),
+      );
     }
   }
 }

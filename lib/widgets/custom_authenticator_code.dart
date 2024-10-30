@@ -1,17 +1,23 @@
 import 'package:common/common.dart';
-import 'package:common/widgets/custom_alert_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rdm_builder_customer/forget_password/forget_password.dart';
 import 'package:rdm_builder_customer/widgets/rich_text_widgets.dart';
+import 'package:rdm_builder_customer/widgets/text_with_text_field_widget.dart';
 
 class CustomAuthenticationCode extends StatelessWidget {
   const CustomAuthenticationCode({
     this.isForgetPassword = false,
+    this.onChanged,
+    required this.onPressed,
+    this.enabled = true,
+    this.loading = false,
     super.key,
   });
 
   final bool isForgetPassword;
+  final void Function(String)? onChanged;
+  final VoidCallback onPressed;
+  final bool enabled;
+  final bool loading;
 
   @override
   Widget build(BuildContext context) {
@@ -35,45 +41,22 @@ class CustomAuthenticationCode extends StatelessWidget {
               style: context.sixteen400,
             ),
             const SizedBox(height: 23),
-            const CustomTextWithTextFieldWidget(
+            TextWithTextFieldWidget(
+              //keyboardType: TextInputType.number,
+              onChanged: onChanged,
               text: 'Authenticator App Code',
               hintText: '000-000',
             ),
             const Spacer(),
             CustomElevatedButton(
+              borderColor: context.transparent,
+              disabledBackgroundColor: context.grey300,
+              disabledForegroundColor: context.white,
               width: double.infinity,
               text: 'Verify',
-              onPressed: () {
-                showDialog<CustomAlertDialog>(
-                  context: context,
-                  builder: (context) => CustomAlertDialog(
-                    title: 'Account Verified!',
-                    subTitle: isForgetPassword
-                        ? 'Let’s create a new secure  password for your account.'
-                        : 'Welcome back to your realwealtdy dashboard.',
-                  ),
-                );
-
-                Future.delayed(
-                  const Duration(seconds: 4),
-                  () {
-                    Navigator.pop(context);
-                    isForgetPassword
-                        ? Navigator.push(
-                            context,
-                            MaterialPageRoute<ForgetPasswordPage>(
-                              builder: (context) {
-                                return const ForgetPasswordPage();
-                              },
-                            ),
-                          )
-                        : context.read<AuthRepository>().loginWithEmailPassword(
-                              email: 'email',
-                              password: 'password',
-                            );
-                  },
-                );
-              },
+              onPressed: onPressed,
+              enabled: enabled,
+              loading: loading,
             ),
             const SizedBox(height: 16),
             Center(

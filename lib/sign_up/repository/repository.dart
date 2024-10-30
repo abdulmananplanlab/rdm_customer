@@ -1,13 +1,21 @@
 import 'dart:async';
 
-import 'package:rdm_builder_customer/sign_up/repository/model/sign_up_model.dart';
+import 'package:common/auth/api/api.dart';
 
 abstract class SignUpRepository {
-  Future<SignUpModel> signUpWithEmailPassword({
+  Future<UserEntity> signUpWithEmailPassword({
     required String firstName,
     required String lastName,
     required String email,
     required String password,
   });
-  Future<String> signUpEmailOtp({required String otp});
+  Future<UserEntity> getBuilderUser({
+    required String token,
+    required String id,
+  });
+
+  Future<UserEntity> googleSignUp({
+    required String companyName,
+    required String email,
+  });
 }

@@ -1,7 +1,5 @@
-import 'package:common/http/http_client.dart';
-import 'package:common/utils/utils.dart';
-import 'package:rdm_builder_customer/app/slack_api_end_points/slack_api_end_points.dart';
-import 'package:rdm_builder_customer/login/repository/model/login_model.dart';
+import 'package:common/common.dart';
+import 'package:rdm_builder_customer/api_end_points/api_end_points.dart';
 import 'package:rdm_builder_customer/login/repository/repository.dart';
 
 class LoginRepositoryImp extends LoginRepository {
@@ -10,12 +8,12 @@ class LoginRepositoryImp extends LoginRepository {
   final HttpClient httpClient;
 
   @override
-  Future<LoginModel> loginWithEmailPassword({
+  Future<UserEntity> loginWithEmailPassword({
     required String email,
     required String password,
   }) {
     return httpClient.post<JsonObject>(
-      path: SlackApiEndpoints.login,
+      path: ApiEndpoints.login,
       body: {
         'email': email,
         'password': password,
@@ -23,8 +21,26 @@ class LoginRepositoryImp extends LoginRepository {
     ).then(
       (json) => $mapIt(
         json,
-        (e) => LoginModel.fromJson(
+        (e) => UserEntity.fromJson(
           e['data']['user'] as JsonObject,
+          e['data']['token'] as String,
+        ),
+      )!,
+    );
+  }
+
+  @override
+  Future<UserEntity> googleLogin(String email) async {
+    return httpClient.post<JsonObject>(
+      path: ApiEndpoints.googleLogin,
+      body: {
+        'email': email,
+      },
+    ).then(
+      (json) => $mapIt(
+        json,
+        (e) => UserEntity.fromJson(
+          e['data']['builder'] as JsonObject,
           e['data']['token'] as String,
         ),
       )!,

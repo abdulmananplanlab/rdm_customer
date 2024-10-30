@@ -47,41 +47,7 @@ class _TwoFaActivationViewState extends State<TwoFaActivationView> {
                 ),
               ),
             ),
-            CustomElevatedButton(
-              width: double.infinity,
-              text: 'Send Code',
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute<CustomPinPut>(
-                    builder: (_) => CustomPinPut(
-                      isEmail: true,
-                      title: 'Phone Number Verification',
-                      onPressed: () {
-                        showDialog<CustomAlertDialog>(
-                          context: context,
-                          builder: (context) => const CustomAlertDialog(
-                            title: '2F Authentication Activated!',
-                            subTitle:
-                                'You’ll be receiving verification codes to +1 234 567 890',
-                          ),
-                        );
-                        Future.delayed(
-                          const Duration(seconds: 3),
-                          () {
-                            Navigator.pop(context);
-                          },
-                        );
-                      },
-                      isStepper: true,
-                      colorTitle: '+1 234 567 890',
-                      appBarTitle: '2FA Activation',
-                      subTitle: 'We have sent a verification code to ',
-                    ),
-                  ),
-                );
-              },
-            ),
+            const SendCodeButton(),
             const SizedBox(height: 20),
           ],
         ),

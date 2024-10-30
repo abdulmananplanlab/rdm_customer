@@ -31,6 +31,8 @@ class AuthProvider extends SingleChildStatelessWidget {
   Widget buildWithChild(BuildContext context, Widget? child) {
     return BlocProvider(
       create: (context) => AuthCubit(
+        token: '',
+        id: '',
         twoFactorLoginRepository: TwoFactorLoginRepositoryImp(
           httpClient: context.read<HttpClient>(),
         ),

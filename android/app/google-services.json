@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "502732760713",
+    "project_id": "realwealtdy-428704",
+    "storage_bucket": "realwealtdy-428704.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:502732760713:android:ae937467582c4b319dc858",
+        "android_client_info": {
+          "package_name": "com.example.rdm_customer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "502732760713-httjd4s0od59kh8nan64vli8518ekkia.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4zrq9bFrEoQ-3LtzFLfEsfpgOOeLTnos"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "502732760713-httjd4s0od59kh8nan64vli8518ekkia.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

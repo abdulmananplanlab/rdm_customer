@@ -9,4 +9,12 @@ final class AccountVerificationState extends Equatable {
 
   @override
   List<Object?> get props => [selectedIndex];
+
+  AccountVerificationState copyWith({
+    int? selectedIndex,
+  }) {
+    return AccountVerificationState(
+      selectedIndex: selectedIndex ?? this.selectedIndex,
+    );
+  }
 }

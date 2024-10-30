@@ -1,5 +1,5 @@
 import 'package:common/common.dart';
-import 'package:rdm_builder_customer/app/slack_api_end_points/slack_api_end_points.dart';
+import 'package:rdm_builder_customer/api_end_points/api_end_points.dart';
 import 'package:rdm_builder_customer/auth/two_factor_login/model/authenticator_model.dart';
 import 'package:rdm_builder_customer/auth/two_factor_login/repository/repository.dart';
 
@@ -18,11 +18,11 @@ class TwoFactorLoginRepositoryImp extends TwoFactorLoginRepository {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
       },
-      path: SlackApiEndpoints.phoneNumberOtp,
+      path: ApiEndpoints.phoneNumberOtp,
       body: {
         'phone_no': otp,
         'type': 'login',
-        'user_type': 'builder',
+        'user_type': 'customer',
       },
     );
   }
@@ -37,9 +37,9 @@ class TwoFactorLoginRepositoryImp extends TwoFactorLoginRepository {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer $token',
           },
-          path: SlackApiEndpoints.authenticatorQrImageGenerate,
+          path: ApiEndpoints.authenticatorQrImageGenerate,
           body: {
-            'user_type': 'builder',
+            'user_type': 'customer',
           },
         )
         .then(
@@ -60,9 +60,9 @@ class TwoFactorLoginRepositoryImp extends TwoFactorLoginRepository {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
       },
-      path: SlackApiEndpoints.authVerify,
+      path: ApiEndpoints.authVerify,
       body: {
-        'user_type': 'builder',
+        'user_type': 'customer',
         'token': tokenCode,
       },
     );
@@ -79,7 +79,7 @@ class TwoFactorLoginRepositoryImp extends TwoFactorLoginRepository {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
       },
-      path: SlackApiEndpoints.phoneNumberOtpVerified,
+      path: ApiEndpoints.phoneNumberOtpVerified,
       body: {
         'phone_no': phoneNumber,
         'otp': otp,

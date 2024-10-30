@@ -3,16 +3,17 @@ import 'dart:async';
 import 'package:common/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:rdm_builder_customer/account_verification/account_verification.dart';
+import 'package:rdm_builder_customer/account_verification/view/view.dart';
 import 'package:rdm_builder_customer/app/bloc/app_bloc.dart';
-import 'package:rdm_builder_customer/forget_password/forget_password.dart';
+import 'package:rdm_builder_customer/forget_password/view/view.dart';
 import 'package:rdm_builder_customer/home/view/home/view.dart';
-import 'package:rdm_builder_customer/login/view/view.dart';
-import 'package:rdm_builder_customer/notification/notification.dart';
-import 'package:rdm_builder_customer/onboarding/onboarding.dart';
+import 'package:rdm_builder_customer/login/login.dart';
+import 'package:rdm_builder_customer/notification/view/view.dart';
+import 'package:rdm_builder_customer/onboarding/view/view.dart';
 import 'package:rdm_builder_customer/sign_up/view/view.dart';
 import 'package:rdm_builder_customer/splash/view/view.dart';
-import 'package:rdm_builder_customer/tab/tab.dart';
+import 'package:rdm_builder_customer/tab/view/view.dart';
+import 'package:rdm_builder_customer/two_fa-authentication/view/view.dart';
 
 part 'routes.dart';
 
@@ -64,7 +65,11 @@ class AppRouter {
                   // redirect to the home page
                   // - [onboarding] if the user is onboarded but still on the onboarding
                   // page, redirect to the home page
-                  if (loading || loggingIn || loggedIn) {
+                  final user = appState.user;
+                  if (!(user.isTwoFactorPhoneComplete ||
+                      user.isTwoFactorAuthenticatorComplete)) {
+                    return TwoFaAuthenticationPage.route();
+                  } else if (loading || loggingIn || loggedIn) {
                     return TabPage.routeWithFirstTab();
                   }
 

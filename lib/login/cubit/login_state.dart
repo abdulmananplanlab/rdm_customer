@@ -1,6 +1,7 @@
 part of 'login_cubit.dart';
 
-typedef LoginDataState = DataState<dynamic>;
+typedef LoginDataState = DataState<UserEntity>;
+typedef SocialLoginState = DataState<UserEntity>;
 
 class LoginState extends Equatable {
   const LoginState({
@@ -10,6 +11,7 @@ class LoginState extends Equatable {
     this.password = const Password.pure(),
     this.status = FormzStatus.pure,
     this.loginDataState = const DataState(),
+    this.socialLoginState = const DataState(),
   });
   final bool isCheck;
   final bool isVisible;
@@ -17,6 +19,7 @@ class LoginState extends Equatable {
   final Email email;
   final Password password;
   final LoginDataState loginDataState;
+  final SocialLoginState socialLoginState;
 
   @override
   List<Object?> get props => [
@@ -26,6 +29,7 @@ class LoginState extends Equatable {
         status,
         isVisible,
         loginDataState,
+        socialLoginState,
       ];
 
   LoginState copyWith({
@@ -35,6 +39,7 @@ class LoginState extends Equatable {
     FormzStatus? status,
     bool? isVisible,
     LoginDataState? loginDataState,
+    SocialLoginState? socialLoginState,
   }) {
     return LoginState(
       isCheck: isCheck ?? this.isCheck,
@@ -43,8 +48,21 @@ class LoginState extends Equatable {
       status: status ?? this.status,
       isVisible: isVisible ?? this.isVisible,
       loginDataState: loginDataState ?? this.loginDataState,
+      socialLoginState: socialLoginState ?? this.socialLoginState,
     );
   }
 
   List<FormzInput<dynamic, dynamic>> get inputs => [email, password];
+
+  bool get isLoginSuccessFull =>
+      loginDataState.isLoaded &&
+      loginDataState.data != null &&
+      loginDataState.data!.token!.notBlank != null;
+
+  bool get isSocialLoginSuccessFull =>
+      socialLoginState.isLoaded &&
+      socialLoginState.data != null &&
+      socialLoginState.data!.token!.notBlank != null;
+
+  UserEntity get user => loginDataState.data ?? socialLoginState.data!;
 }

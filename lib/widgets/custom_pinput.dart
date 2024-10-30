@@ -1,7 +1,7 @@
 import 'package:common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
-import 'package:rdm_builder_customer/two_factor_activition/two_fa_authenticator_app.dart';
+import 'package:rdm_builder_customer/Identity_verification/Identity_verification/identity_verification.dart';
 import 'package:rdm_builder_customer/widgets/rich_text_widgets.dart';
 
 class CustomPinPut extends StatelessWidget {
@@ -15,6 +15,9 @@ class CustomPinPut extends StatelessWidget {
     this.colorTitle,
     required this.title,
     this.isSupport = false,
+    this.onChanged,
+    this.loading = false,
+    required this.enable,
   });
 
   final String appBarTitle;
@@ -24,7 +27,10 @@ class CustomPinPut extends StatelessWidget {
   final bool isStepper;
   final bool isSupport;
   final bool isEmail;
+  final bool loading;
+  final bool enable;
   final VoidCallback? onPressed;
+  final void Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -104,11 +110,7 @@ class CustomPinPut extends StatelessWidget {
                       child: Pinput(
                         defaultPinTheme: defaultPinTheme,
                         focusedPinTheme: focusedPinTheme,
-                        // validator: (s) {
-                        //   optVerify = s ?? state.otp;
-                        //   return s == '' ? null : 'Pin is incorrect';
-                        // },
-                        onChanged: (pin) => pin,
+                        onChanged: onChanged,
                       ),
                     ),
                     const SizedBox(height: 16),
@@ -136,6 +138,10 @@ class CustomPinPut extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             CustomElevatedButton(
+              loading: loading,
+              enabled: enable,
+              disabledBackgroundColor: context.grey300,
+              disabledForegroundColor: context.white,
               width: double.infinity,
               text: 'Verify',
               onPressed: onPressed,

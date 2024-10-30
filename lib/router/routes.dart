@@ -33,47 +33,19 @@ class AppRoutes {
           builder: (_, __) => const AccountVerificationPage(),
         ),
         GoRoute(
-          path: ForgetPasswordPage.route(),
-          builder: (_, __) => const ForgetPasswordPage(),
-        ),
-        // GoRoute(
-        //   path: ChangeEmailPage.route(),
-        //   builder: (_, __) => const ChangeEmailPage(),
-        // ),
-        // GoRoute(
-        //   path: ChangeNumberPage.route(),
-        //   builder: (_, __) => const ChangeNumberPage(),
-        // ),
-        // GoRoute(
-        //   path: NotificationPage.route(),
-        //   name: NotificationPage.route(),
-        //   builder: (_, __) => const NotificationPage(),
-        // ),
-        // GoRoute(
-        //   path: TabPage.path(),
-        //   builder: (_, state) => TabPage(
-        //     key: state.pageKey,
-        //     page: state.pathParameters['page']!,
-        //   ),
-        // ),
-        GoRoute(
-          path: AccountVerificationPage.route(),
-          builder: (_, __) => const AccountVerificationPage(),
+          path: TwoFaAuthenticationPage.route(),
+          builder: (context, state) => TwoFaAuthenticationPage(
+            // text: state.pathParameters['text'] ?? '',
+            isSupport: state.pathParameters['isSupport'] == 'true',
+          ),
         ),
         GoRoute(
           path: ForgetPasswordPage.route(),
           builder: (_, __) => const ForgetPasswordPage(),
         ),
-        // GoRoute(
-        //   path: ChangeEmailPage.route(),
-        //   builder: (_, __) => const ChangeEmailPage(),
-        // ),
-        // GoRoute(
-        //   path: ChangeNumberPage.route(),
-        //   builder: (_, __) => const ChangeNumberPage(),
-        // ),
         GoRoute(
           path: NotificationPage.route(),
+          name: NotificationPage.route(),
           builder: (_, __) => const NotificationPage(),
         ),
         GoRoute(
