@@ -19,7 +19,7 @@ class SearchWidget extends StatelessWidget {
             ),
             prefixIcon: Icon(Icons.search),
             contentPadding: EdgeInsets.symmetric(
-              vertical: 16,
+              vertical: 12,
               horizontal: 16,
             ),
             hintText: 'Search Property...',
@@ -28,7 +28,11 @@ class SearchWidget extends StatelessWidget {
         SizedBox(
           width: 8.0,
         ),
-        CustomDropDownMenu(),
+        UpwardDropdownButton(
+          options: ['Rent', 'Buy'],
+          initialSelectedValue: 'Sort By',
+        ),
+        // CustomDropDownMenu(),
       ],
     );
   }

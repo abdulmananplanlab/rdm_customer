@@ -530,11 +530,13 @@ class AuthCubit extends Cubit<AuthState> {
         id: state.signUpDataSate.data?.id ??
             id ??
             state.loginDataState.data?.id ??
-            'No id',
+            id ??
+            '',
         token: state.signUpDataSate.data?.token ??
             token ??
             state.loginDataState.data?.token ??
-            'No Token',
+            token ??
+            '',
       );
 
       emit(
