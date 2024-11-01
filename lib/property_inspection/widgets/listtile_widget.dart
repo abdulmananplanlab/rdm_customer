@@ -1,5 +1,4 @@
 import 'package:common/common.dart';
-import 'package:common/widgets/list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:rdm_builder_customer/widgets/custom_color_container.dart';
 import 'package:rdm_builder_customer/widgets/custom_drawer.dart';
@@ -11,15 +10,18 @@ class HomeProfileListTileWidget extends StatelessWidget {
     required this.title,
     required this.subTitle,
     this.isVerified = false,
+    this.color,
   });
   final String imageUrl;
   final String title;
   final String subTitle;
   final bool isVerified;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
     return CustomColorContainer(
+      color: color ?? context.grey50,
       margin: const EdgeInsets.only(top: 16),
       child: CustomListTile(
         titleStyle: context.sixteen400.withColor(context.grey500),

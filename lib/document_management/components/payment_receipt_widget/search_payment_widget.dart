@@ -1,15 +1,15 @@
 import 'package:common/common.dart';
 import 'package:flutter/material.dart';
-import 'package:rdm_builder_customer/widgets/custom_drop_down_menu.dart';
+import 'package:rdm_builder_customer/widgets/custom_drop_down_button2.dart';
 
-class SearchWidget extends StatelessWidget {
-  const SearchWidget({
+class SearchPaymentWidget extends StatelessWidget {
+  const SearchPaymentWidget({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    return Row(
       children: <Widget>[
         Expanded(
           child: CustomTextFormField(
@@ -28,9 +28,11 @@ class SearchWidget extends StatelessWidget {
         SizedBox(
           width: 8.0,
         ),
-        UpwardDropdownButton(
-          options: ['Rent', 'Buy'],
-          initialSelectedValue: 'Sort By',
+        CustomDropdownButton2(
+          dropdownWidth: 120,
+          onChanged: (value) {},
+          dropdownItems: ['Paid', 'Pending'],
+          hint: 'Sort By',
         ),
         // CustomDropDownMenu(),
       ],

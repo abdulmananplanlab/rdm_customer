@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rdm_builder_customer/document_management/view/view.dart';
 import 'package:rdm_builder_customer/help_center/view/view.dart';
 import 'package:rdm_builder_customer/message/message.dart';
+import 'package:rdm_builder_customer/offer_management/offer_management.dart';
 import 'package:rdm_builder_customer/setting/view/view.dart';
 import 'package:rdm_builder_customer/widgets/custom_text_button.dart';
 import 'package:rdm_builder_customer/widgets/custom_title_subtitle.dart';
@@ -208,6 +209,7 @@ class DrawerItemData {
         icon: AssetIcons.offer_management_icon,
         onTap: () {
           Navigator.of(context).pop();
+          Navigator.of(context).push(OfferManagementPage.route());
         },
       ),
       DrawerItemData(

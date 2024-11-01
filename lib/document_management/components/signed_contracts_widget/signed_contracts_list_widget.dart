@@ -1,34 +1,11 @@
 import 'package:common/common.dart';
 import 'package:flutter/material.dart';
-import 'package:rdm_builder_customer/document_management/components/search_widget.dart';
-import 'package:rdm_builder_customer/home/view/listing_details/view/listing_page.dart';
+import 'package:rdm_builder_customer/document_management/components/signed_contracts_widget/signed_contract_property_detail/signed_contract_property_detail.dart';
 import 'package:rdm_builder_customer/widgets/custom_color_container.dart';
 import 'package:rdm_builder_customer/widgets/custom_drawer.dart';
 import 'package:rdm_builder_customer/widgets/custom_side_border_widget.dart';
 import 'package:rdm_builder_customer/widgets/horizontal_spacing.dart';
 import 'package:rdm_builder_customer/widgets/vertical_spacing.dart';
-
-class SignedContractsWidget extends StatelessWidget {
-  const SignedContractsWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.0),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            VerticalSpacing(of: 28),
-            SearchWidget(),
-            VerticalSpacing(),
-            SignedContractsListWidget(),
-          ],
-        ),
-      ),
-    );
-  }
-}
 
 class SignedContractsListWidget extends StatelessWidget {
   const SignedContractsListWidget({
@@ -48,7 +25,7 @@ class SignedContractsListWidget extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (_) => const PropertyDetailPage(),
+                builder: (_) => const SignedContractPropertyDetail(),
               ),
             );
           },
@@ -72,9 +49,33 @@ class SignedContractsListWidget extends StatelessWidget {
                             'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
                       ),
                       Positioned(
+                        bottom: 10,
+                        left: 0,
+                        right: 0,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: List.generate(
+                            5,
+                            (index) => AnimatedContainer(
+                              margin: const EdgeInsets.symmetric(horizontal: 2),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: 1 == index
+                                    ? context.white
+                                    : context.grey200,
+                              ),
+                              height: 1 == index ? 9 : 6,
+                              width: 1 == index ? 9 : 6,
+                              duration: const Duration(milliseconds: 700),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Positioned(
                         top: 8,
                         right: 10,
                         child: CustomElevatedButton(
+                          borderColor: Colors.transparent,
                           disabledBackgroundColor: context.primary500,
                           disabledForegroundColor: context.white,
                           borderRadius: 6,
@@ -91,6 +92,7 @@ class SignedContractsListWidget extends StatelessWidget {
                         child: Row(
                           children: [
                             CustomColorContainer(
+                              borderColor: Colors.transparent,
                               borderRadius: BorderRadius.zero,
                               margin: const EdgeInsets.all(0),
                               padding: const EdgeInsets.all(4),
