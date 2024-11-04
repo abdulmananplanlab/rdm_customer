@@ -1,13 +1,13 @@
 part of 'view.dart';
 
-class OfferManagementView extends StatelessWidget {
-  const OfferManagementView({super.key});
+class RentPurchaseManagementView extends StatelessWidget {
+  const RentPurchaseManagementView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
       appBar: CustomAppBar(
-        title: 'Offer Management',
+        title: 'My Properties',
         actions: [
           GestureDetector(
             onTap: () {
@@ -36,7 +36,7 @@ class OfferManagementView extends StatelessWidget {
         ),
       ),
       drawer: const CustomDrawer(),
-      body: OfferManagementViewBody(),
+      body: RentPurchaseManagementBody(),
     );
   }
 }

@@ -17,6 +17,7 @@ class TextWithTextFieldWidget extends StatelessWidget {
     this.hintStyle,
     this.hasError = false,
     this.keyboardType,
+    this.textStyle,
   });
   final String? text;
   final String hintText;
@@ -31,6 +32,7 @@ class TextWithTextFieldWidget extends StatelessWidget {
   final TextStyle? hintStyle;
   final bool hasError;
   final TextInputType? keyboardType;
+  final TextStyle? textStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +55,7 @@ class TextWithTextFieldWidget extends StatelessWidget {
         else
           Text(
             text ?? '',
-            style: context.sixteen400,
+            style: textStyle ?? context.sixteen400,
           ),
         const SizedBox(height: 8),
         CustomTextFormField(

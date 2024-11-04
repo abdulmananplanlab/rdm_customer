@@ -49,11 +49,11 @@ class TextSwitchWidget extends StatelessWidget {
                     if (states.containsAll(
                       [WidgetState.disabled, WidgetState.selected],
                     )) {
-                      return const Icon(Icons.circle, color: Colors.red);
+                      return Icon(Icons.circle, color: context.white);
                     }
 
                     if (states.contains(WidgetState.disabled)) {
-                      return const Icon(Icons.circle, color: Colors.blue);
+                      return Icon(Icons.circle, color: context.white);
                     }
 
                     if (states.contains(WidgetState.selected)) {
