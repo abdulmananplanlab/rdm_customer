@@ -186,6 +186,12 @@ class RentedWidget extends StatelessWidget {
                                     title: 'Give a Review',
                                     onPressed: () {
                                       showModalBottomSheet(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.vertical(
+                                            top: Radius.circular(8.0),
+                                          ),
+                                        ),
+                                        backgroundColor: context.white,
                                         context: context,
                                         builder: (context) {
                                           return CustomBottomSheet(
@@ -221,7 +227,7 @@ class RentedWidget extends StatelessWidget {
                                                                 .size
                                                                 .height *
                                                             0.03,
-                                                    initialRating: 3,
+                                                    initialRating: 0,
                                                     allowHalfRating: true,
                                                     maxRating: 5.0,
                                                     ratingWidget: RatingWidget(
@@ -254,6 +260,31 @@ class RentedWidget extends StatelessWidget {
                                                     hintText:
                                                         'share details of your experience...',
                                                   ),
+                                                  const VerticalSpacing(of: 16),
+                                                  Row(
+                                                    children: [
+                                                      Expanded(
+                                                        child:
+                                                            CustomOutlinedButton
+                                                                .custom(
+                                                          height: 48,
+                                                          text: 'Cancel',
+                                                          onPressed: () =>
+                                                              Navigator.pop(
+                                                                  context),
+                                                        ),
+                                                      ),
+                                                      HorizontalSpacing(of: 16),
+                                                      Expanded(
+                                                        child:
+                                                            CustomElevatedButton(
+                                                          height: 48,
+                                                          text: 'Submit',
+                                                          onPressed: () {},
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  )
                                                 ],
                                               ),
                                             ),
