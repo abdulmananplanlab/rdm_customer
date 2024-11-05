@@ -64,8 +64,10 @@ class SignUpRepositoryImp extends SignUpRepository {
     return httpClient.post<JsonObject>(
       path: ApiEndpoints.googleSignUp,
       body: {
-        'company_name': companyName,
+        'first_name': 'companyName',
+        'last_name': 'companyName',
         'email': email,
+        'user_type': 'customer',
       },
     ).then(
       (json) => $mapIt(

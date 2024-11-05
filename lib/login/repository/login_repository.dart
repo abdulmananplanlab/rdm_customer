@@ -35,6 +35,7 @@ class LoginRepositoryImp extends LoginRepository {
       path: ApiEndpoints.googleLogin,
       body: {
         'email': email,
+        'user_type': 'customer',
       },
     ).then(
       (json) => $mapIt(

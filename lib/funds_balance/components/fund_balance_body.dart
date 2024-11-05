@@ -1,6 +1,6 @@
 import 'package:common/common.dart';
 import 'package:flutter/material.dart';
-import 'package:rdm_builder_customer/offer_management/components/pending_widget/pending_detail_widget.dart';
+import 'package:rdm_builder_customer/funds_balance/components/fund_balance_property_detail/fund_balance_property_detail.dart';
 import 'package:rdm_builder_customer/widgets/custom_color_container.dart';
 import 'package:rdm_builder_customer/widgets/custom_drawer.dart';
 import 'package:rdm_builder_customer/widgets/custom_horizatal_text_row.dart';
@@ -56,7 +56,7 @@ class FundBalanceBody extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute<void>(
-                      builder: (_) => const PendingDetailWidget(),
+                      builder: (_) => const FundBalancePropertyDetail(),
                     ),
                   );
                 },
