@@ -40,6 +40,7 @@ enum AssetIcons {
   water_icon,
   tabler_alert_circle_filled,
   ac_icon,
+  dollor_icon,
   elevator_icon,
   furnished_icon,
   no_smoking_icon,

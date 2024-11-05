@@ -3,6 +3,7 @@ import 'package:common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rdm_builder_customer/document_management/view/view.dart';
+import 'package:rdm_builder_customer/funds_balance/view/view.dart';
 import 'package:rdm_builder_customer/help_center/view/view.dart';
 import 'package:rdm_builder_customer/message/message.dart';
 import 'package:rdm_builder_customer/offer_management/offer_management.dart';
@@ -226,7 +227,7 @@ class DrawerItemData {
         icon: AssetIcons.fund_balance_icon,
         onTap: () {
           Navigator.of(context).pop();
-          // Navigator.of(context).push(MessagePage.route());
+          Navigator.of(context).push(FundsBalancePage.route());
         },
       ),
       DrawerItemData(

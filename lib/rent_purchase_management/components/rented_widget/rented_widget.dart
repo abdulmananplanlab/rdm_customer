@@ -1,14 +1,12 @@
 import 'package:common/common.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:rdm_builder_customer/offer_management/components/accepted_widget/accepted_detail_widget.dart';
+import 'package:rdm_builder_customer/rent_purchase_management/components/rented_widget/rented_detail_widget/rented_detail_widget.dart';
 import 'package:rdm_builder_customer/widgets/custom_color_container.dart';
 import 'package:rdm_builder_customer/widgets/custom_drawer.dart';
-import 'package:rdm_builder_customer/widgets/custom_horizatal_text_row.dart';
 import 'package:rdm_builder_customer/widgets/custom_side_border_widget.dart';
-import 'package:rdm_builder_customer/widgets/custom_text_button.dart';
+import 'package:rdm_builder_customer/widgets/download_button_widget.dart';
+import 'package:rdm_builder_customer/widgets/give_review_widget.dart';
 import 'package:rdm_builder_customer/widgets/horizontal_spacing.dart';
-import 'package:rdm_builder_customer/widgets/text_with_text_field_widget.dart';
 import 'package:rdm_builder_customer/widgets/vertical_spacing.dart';
 
 class RentedWidget extends StatelessWidget {
@@ -26,7 +24,7 @@ class RentedWidget extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => AcceptedDetailWidget(),
+                builder: (context) => RentedDetailWidget(),
               ),
             );
           },
@@ -139,161 +137,15 @@ class RentedWidget extends StatelessWidget {
                           style: context.sixteen400,
                         ),
                       ),
-                      CustomListTile(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        title: 'Agreement',
-                        titleStyle: context.sixteen400,
-                        trailing: Row(
-                          children: [
-                            const AssetIcon.multicolor(AssetIcons.upload_icon),
-                            const SizedBox(
-                              width: 8,
-                            ),
-                            Text(
-                              'Download',
-                              style: context.sixteen400
-                                  .withColor(context.primary500),
-                            ),
-                          ],
-                        ),
+                      DownloadButtonWidget(
+                        onTap: () {},
                       ),
                       RentedModel.rented[index].status.rating == true
                           ? RentedModel.rented[index].isRating == false
-                              ? CustomListTile(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  title: 'Review',
-                                  titleStyle: context.sixteen400,
-                                  trailing: Row(
-                                    children: [
-                                      Icon(
-                                        Icons.star_outlined,
-                                        color: context.yellow,
-                                        size: 30,
-                                      ),
-                                      HorizontalSpacing(of: 4),
-                                      Text(
-                                        '3.5',
-                                        style: context.sixteen400,
-                                      ),
-                                    ],
-                                  ),
+                              ? ReviewWidget(
+                                  reviewTitle: '3.5',
                                 )
-                              : CustomListTile(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  title: 'Review',
-                                  titleStyle: context.sixteen400,
-                                  trailing: CustomTextButton(
-                                    title: 'Give a Review',
-                                    onPressed: () {
-                                      showModalBottomSheet(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.vertical(
-                                            top: Radius.circular(8.0),
-                                          ),
-                                        ),
-                                        backgroundColor: context.white,
-                                        context: context,
-                                        builder: (context) {
-                                          return CustomBottomSheet(
-                                            mainAxisSize: MainAxisSize.min,
-                                            showDragHandle: false,
-                                            content: Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                horizontal: 24.0,
-                                                vertical: 16,
-                                              ),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  CustomHorizontalTextRow(
-                                                    leadingTitle:
-                                                        'Rate & Review',
-                                                    leadingStyle:
-                                                        context.twenty600,
-                                                    trailingChild:
-                                                        CustomIconButton(
-                                                      icon: Icon(Icons.close),
-                                                      onPressed: () =>
-                                                          Navigator.pop(
-                                                              context),
-                                                    ),
-                                                  ),
-                                                  const VerticalSpacing(of: 16),
-                                                  RatingBar(
-                                                    itemSize:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height *
-                                                            0.03,
-                                                    initialRating: 0,
-                                                    allowHalfRating: true,
-                                                    maxRating: 5.0,
-                                                    ratingWidget: RatingWidget(
-                                                      full: AssetIcon.monotone(
-                                                        AssetIcons.star_icon,
-                                                        color: context.yellow,
-                                                      ),
-                                                      half: AssetIcon.monotone(
-                                                        AssetIcons.star_icon,
-                                                        color: context.yellow
-                                                            .withOpacity(0.5),
-                                                      ),
-                                                      empty: AssetIcon.monotone(
-                                                        AssetIcons.star_icon,
-                                                        color: context.grey300,
-                                                      ),
-                                                    ),
-                                                    itemPadding:
-                                                        const EdgeInsets
-                                                            .symmetric(
-                                                            horizontal: 2.0),
-                                                    onRatingUpdate: (rating) {},
-                                                  ),
-                                                  const VerticalSpacing(of: 16),
-                                                  TextWithTextFieldWidget(
-                                                    maxLines: 3,
-                                                    text: 'Write Review',
-                                                    textStyle:
-                                                        context.sixteen600,
-                                                    hintText:
-                                                        'share details of your experience...',
-                                                  ),
-                                                  const VerticalSpacing(of: 16),
-                                                  Row(
-                                                    children: [
-                                                      Expanded(
-                                                        child:
-                                                            CustomOutlinedButton
-                                                                .custom(
-                                                          height: 48,
-                                                          text: 'Cancel',
-                                                          onPressed: () =>
-                                                              Navigator.pop(
-                                                                  context),
-                                                        ),
-                                                      ),
-                                                      HorizontalSpacing(of: 16),
-                                                      Expanded(
-                                                        child:
-                                                            CustomElevatedButton(
-                                                          height: 48,
-                                                          text: 'Submit',
-                                                          onPressed: () {},
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                      );
-                                    },
-                                  ),
-                                )
+                              : GiveReviewWidget()
                           : CustomListTile(
                               width: 8,
                               titleStyle:
@@ -332,6 +184,36 @@ class RentedWidget extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class ReviewWidget extends StatelessWidget {
+  const ReviewWidget({
+    super.key,
+    required this.reviewTitle,
+  });
+  final String reviewTitle;
+  @override
+  Widget build(BuildContext context) {
+    return CustomListTile(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      title: 'Review',
+      titleStyle: context.sixteen400,
+      trailing: Row(
+        children: [
+          Icon(
+            Icons.star_outlined,
+            color: context.yellow,
+            size: 30,
+          ),
+          HorizontalSpacing(of: 4),
+          Text(
+            reviewTitle,
+            style: context.sixteen400,
+          ),
+        ],
+      ),
     );
   }
 }

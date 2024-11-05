@@ -159,6 +159,11 @@ class AcceptedWidget extends StatelessWidget {
                           ),
                         ),
                       ),
+                      const VerticalSpacing(of: 16),
+                      CustomOutlinedButton.custom(
+                        text: 'Complete Purchased',
+                        onPressed: () {},
+                      )
                     ],
                   ),
                 ),
