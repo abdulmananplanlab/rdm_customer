@@ -10,6 +10,7 @@ import 'package:rdm_builder_customer/home/view/listing_details/components/rating
 import 'package:rdm_builder_customer/home/view/listing_details/components/transit_widget.dart';
 import 'package:rdm_builder_customer/home/view/listing_details/components/unit_pricing_widget.dart';
 import 'package:rdm_builder_customer/property_inspection/widgets/listtile_widget.dart';
+import 'package:rdm_builder_customer/schedule_a_visit/schedule_a_visit.dart';
 import 'package:rdm_builder_customer/widgets/base_scaffold.dart';
 import 'package:rdm_builder_customer/widgets/custom_border_list_tile.dart';
 import 'package:rdm_builder_customer/widgets/custom_drawer.dart';
@@ -243,6 +244,9 @@ class _SignedContractPropertyDetailState extends State<RentedDetail>
         VerticalSpacing(),
         CustomOutlinedButton.custom(
           text: 'Schedule a Visit',
+          onPressed: () {
+            Navigator.push(context, ScheduleVisitPage.route());
+          },
         ),
         VerticalSpacing(),
         Divider(

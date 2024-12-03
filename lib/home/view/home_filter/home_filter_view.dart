@@ -249,15 +249,19 @@ class ChipWidget extends StatelessWidget {
   const ChipWidget({
     super.key,
     required this.addedChips,
+    this.spacing,
+    this.runSpacing,
   });
 
   final List<String> addedChips;
+  final double? spacing;
+  final double? runSpacing;
 
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      spacing: 10.0,
-      runSpacing: 10.0,
+      spacing: spacing ?? 10.0,
+      runSpacing: runSpacing ?? 10.0,
       children: addedChips.map((items) {
         return Chip(
           labelStyle: context.sixteen400.withColor(context.grey900),

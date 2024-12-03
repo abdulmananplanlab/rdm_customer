@@ -1,7 +1,7 @@
 part of 'view.dart';
 
-class ScheduleAVisitView extends StatelessWidget {
-  const ScheduleAVisitView({super.key});
+class ScheduleVisitView extends StatelessWidget {
+  const ScheduleVisitView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +22,7 @@ class ScheduleAVisitView extends StatelessWidget {
           ),
         ],
       ),
-      body: Column(
-        children: [],
-      ),
+      body: ScheduleVisitBody(),
     );
   }
 }

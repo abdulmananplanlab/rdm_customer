@@ -8,6 +8,7 @@ enum AssetIcons {
   email_icon,
   line,
   edit,
+  select_date_edit_icon,
   password_eye,
   copy_icon,
   car_icon,

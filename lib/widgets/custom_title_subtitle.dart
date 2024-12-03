@@ -11,6 +11,7 @@ class CustomTitleSubtitle extends StatelessWidget {
     this.subtitleStyle,
     this.isIcon = false,
     this.height,
+    this.crossAxisAlignment,
   });
   final String title;
   final String? subtitle;
@@ -19,11 +20,12 @@ class CustomTitleSubtitle extends StatelessWidget {
   final TextStyle? subtitleStyle;
   final bool isIcon;
   final double? height;
+  final CrossAxisAlignment? crossAxisAlignment;
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.start,
       children: [
         if (isIcon)
           Row(

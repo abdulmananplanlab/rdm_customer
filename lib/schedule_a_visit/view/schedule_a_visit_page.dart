@@ -1,10 +1,13 @@
 part of 'view.dart';
 
-class ScheduleAVisitPage extends StatelessWidget {
-  const ScheduleAVisitPage({super.key});
+class ScheduleVisitPage extends StatelessWidget {
+  const ScheduleVisitPage({super.key});
+  static Route<ScheduleVisitPage> route() => MaterialPageRoute(
+        builder: (_) => const ScheduleVisitPage(),
+      );
 
   @override
   Widget build(BuildContext context) {
-    return const ScheduleAVisitView();
+    return const ScheduleVisitView();
   }
 }
